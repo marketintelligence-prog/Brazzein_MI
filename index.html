@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brazzein — Market Intelligence Report | June 2026</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #222; display: flex; min-height: 100vh; }
+
+  /* ── SIDEBAR ─────────────────────────────────────────────────── */
+  #sidebar {
+    width: 260px; min-width: 260px; background: #0d1b2a; color: #c9d6e3;
+    position: fixed; top: 0; left: 0; height: 100vh;
+    display: flex; flex-direction: column; overflow-y: auto; z-index: 100;
+    print-color-adjust: exact; -webkit-print-color-adjust: exact;
+  }
+  #sidebar .brand { padding: 22px 18px 14px; border-bottom: 1px solid #1e3a5f; }
+  #sidebar .brand .tag { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #4fc3f7; margin-bottom: 6px; }
+  #sidebar .brand h2 { font-size: 14px; color: #fff; font-weight: 700; line-height: 1.3; }
+  #sidebar .brand p { font-size: 11px; color: #7a9bb5; margin-top: 4px; }
+  #sidebar nav { padding: 14px 0; flex: 1; }
+  #sidebar nav a {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 18px; text-decoration: none; color: #8faec5;
+    font-size: 12px; transition: all .2s; border-left: 3px solid transparent;
+  }
+  #sidebar nav a:hover, #sidebar nav a.active {
+    background: rgba(79,195,247,.08); color: #4fc3f7; border-left-color: #4fc3f7;
+  }
+  #sidebar nav a .num {
+    background: #1e3a5f; color: #4fc3f7; border-radius: 4px;
+    font-size: 10px; font-weight: 700; padding: 2px 6px; min-width: 24px; text-align: center;
+  }
+  #sidebar nav a.active .num { background: #4fc3f7; color: #0d1b2a; }
+  #sidebar .meta { padding: 14px 18px; border-top: 1px solid #1e3a5f; font-size: 10px; color: #4a6a87; line-height: 1.7; }
+  #sidebar .pdf-btn {
+    margin: 14px 18px; background: #4fc3f7; color: #0d1b2a;
+    border: none; border-radius: 6px; padding: 10px 14px;
+    font-size: 12px; font-weight: 700; cursor: pointer; letter-spacing: .5px;
+    print-color-adjust: exact; -webkit-print-color-adjust: exact;
+  }
+  #sidebar .pdf-btn:hover { background: #81d4fa; }
+
+  /* ── MAIN CONTENT ─────────────────────────────────────────────── */
+  #main { margin-left: 260px; flex: 1; }
+
+  /* ── HERO ──────────────────────────────────────────────────────── */
+  .hero {
+    background: linear-gradient(135deg, #0d1b2a 0%, #0a3d5c 60%, #0d5987 100%);
+    padding: 40px 48px 36px; color: #fff;
+    print-color-adjust: exact; -webkit-print-color-adjust: exact;
+  }
+  .hero .report-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #4fc3f7; margin-bottom: 10px; }
+  .hero h1 { font-size: 52px; font-weight: 900; letter-spacing: -1px; line-height: 1; margin-bottom: 6px; }
+  .hero h1 span { color: #4fc3f7; }
+  .hero .sub { font-size: 14px; color: #a3c4d8; max-width: 640px; line-height: 1.6; margin-bottom: 20px; }
+  .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+  .badge {
+    background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.15);
+    border-radius: 20px; padding: 4px 12px; font-size: 11px; color: #cde8f6;
+    print-color-adjust: exact; -webkit-print-color-adjust: exact;
+  }
+  .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 780px; }
+  .kpi {
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 10px; padding: 16px 18px;
+    print-color-adjust: exact; -webkit-print-color-adjust: exact;
+  }
+  .kpi .val { font-size: 22px; font-weight: 800; line-height: 1.1; }
+  .kpi .lbl { font-size: 11px; color: #7ab2cc; margin-top: 4px; line-height: 1.4; }
+  .green { color: #4caf50; } .amber { color: #ffd54f; } .red { color: #ef5350; } .blue { color: #4fc3f7; }
+
+  /* ── SECTIONS ─────────────────────────────────────────────────── */
+  .content { padding: 32px 40px; }
+  .section { margin-bottom: 48px; scroll-margin-top: 20px; }
+  .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+  .section-header .num {
+    background: #1565c0; color: #fff; border-radius: 8px;
+    font-size: 14px; font-weight: 800; padding: 6px 11px; min-width: 38px; text-align: center;
+    print-color-adjust: exact; -webkit-print-color-adjust: exact;
+  }
+  .section-header h2 { font-size: 22px; font-weight: 700; color: #0d1b2a; }
+  .section-header h2 span { color: #1565c0; }
+
+  /* ── CARDS ─────────────────────────────────────────────────────── */
+  .card { background: #fff; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,.07); margin-bottom: 20px; overflow: hidden; }
+  .card-header {
+    background: #fff; border-left: 4px solid #1565c0;
+    padding: 12px 18px; font-size: 14px; font-weight: 700; color: #1565c0;
+    print-color-adjust: exact; -webkit-print-color-adjust: exact;
+  }
+  .card-body { padding: 18px; }
+
+  /* ── TABLES ─────────────────────────────────────────────────────── */
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  th {
+    background: #1565c0; color: #fff; padding: 9px 12px; text-align: left; font-size: 11px; letter-spacing: .5px;
+    print-color-adjust: exact; -webkit-print-color-adjust: exact;
+  }
+  td { padding: 8px 12px; border-bottom: 1px solid #eef1f5; vertical-align: top; line-height: 1.5; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  tr:hover td { background: #edf3fb; }
+  .india-row td { background: #fff8e1 !important; border-left: 3px solid #f9a825; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+
+  /* ── PROPERTY GRID ──────────────────────────────────────────────── */
+  .prop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+  .prop { background: #f8fafc; border-radius: 7px; padding: 12px 14px; }
+  .prop .lbl { font-size: 10px; color: #6a8baa; text-transform: uppercase; letter-spacing: .7px; margin-bottom: 4px; }
+  .prop .val { font-size: 13px; font-weight: 600; color: #0d1b2a; }
+
+  /* ── ALERTS ─────────────────────────────────────────────────────── */
+  .alert { border-radius: 8px; padding: 12px 16px; margin: 14px 0; font-size: 12.5px; line-height: 1.6; }
+  .alert-info { background: #e3f2fd; border-left: 4px solid #1565c0; color: #0d3b6e; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .alert-warning { background: #fff3e0; border-left: 4px solid #f9a825; color: #7a4800; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .alert-success { background: #e8f5e9; border-left: 4px solid #4caf50; color: #1b5e20; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .alert-danger { background: #fce4ec; border-left: 4px solid #e53935; color: #7f0000; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+
+  /* ── TAG PILLS ──────────────────────────────────────────────────── */
+  .tag-pill { display: inline-block; border-radius: 20px; padding: 2px 9px; font-size: 11px; font-weight: 700; margin: 1px; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .tag-green { background: #e8f5e9; color: #2e7d32; }
+  .tag-amber { background: #fff3e0; color: #bf6900; }
+  .tag-red { background: #fce4ec; color: #b71c1c; }
+  .tag-blue { background: #e3f2fd; color: #0d47a1; }
+  .tag-gray { background: #f0f0f0; color: #555; }
+
+  /* ── SWOT ──────────────────────────────────────────────────────── */
+  .swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-radius: 10px; overflow: hidden; }
+  .swot-cell { padding: 20px; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .swot-s { background: #e8f5e9; } .swot-w { background: #fce4ec; }
+  .swot-o { background: #e3f2fd; } .swot-t { background: #fff8e1; }
+  .swot-cell h3 { font-size: 13px; font-weight: 800; margin-bottom: 10px; }
+  .swot-cell ul { padding-left: 16px; font-size: 12.5px; line-height: 1.8; }
+
+  /* ── PORTER'S ───────────────────────────────────────────────────── */
+  .forces-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .force-card { background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.07); overflow: hidden; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .force-card .fh { padding: 10px 14px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: #fff; }
+  .fh-red { background: #e53935; } .fh-orange { background: #fb8c00; } .fh-green { background: #43a047; }
+  .force-card .fb { padding: 12px 14px; font-size: 12px; color: #333; line-height: 1.6; }
+
+  /* ── PESTLE ──────────────────────────────────────────────────────── */
+  .pestle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .pestle-card { background: #fff; border-radius: 8px; border-left: 4px solid #1565c0; box-shadow: 0 1px 4px rgba(0,0,0,.06); padding: 14px 16px; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .pestle-card h3 { font-size: 12px; font-weight: 700; color: #1565c0; margin-bottom: 8px; }
+  .pestle-card ul { padding-left: 16px; font-size: 12px; color: #333; line-height: 1.8; }
+
+  /* ── BCG ──────────────────────────────────────────────────────────── */
+  .bcg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-radius: 10px; overflow: hidden; }
+  .bcg-cell { padding: 20px; font-size: 12.5px; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .bcg-star { background: #e3f2fd; } .bcg-qm { background: #fff3e0; }
+  .bcg-cow { background: #e8f5e9; } .bcg-dog { background: #f5f5f5; }
+  .bcg-cell h3 { font-size: 16px; margin-bottom: 6px; font-weight: 700; }
+
+  /* ── ANSOFF ──────────────────────────────────────────────────────── */
+  .ansoff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .ansoff-card { background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.07); padding: 16px; font-size: 12.5px; }
+  .ansoff-card h3 { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+
+  /* ── VALUE CHAIN ─────────────────────────────────────────────────── */
+  .vc-flow { display: flex; gap: 0; flex-wrap: wrap; margin-bottom: 18px; }
+  .vc-step {
+    padding: 10px 16px; font-size: 11px; font-weight: 700; text-align: center;
+    border-right: 2px solid #fff; flex: 1; min-width: 100px;
+    print-color-adjust: exact; -webkit-print-color-adjust: exact;
+  }
+  .vc-step.active { background: #1565c0; color: #fff; }
+  .vc-step.inactive { background: #d8e3f0; color: #5a7a99; }
+  .vc-step:first-child { border-radius: 8px 0 0 8px; }
+  .vc-step:last-child { border-radius: 0 8px 8px 0; border-right: none; }
+
+  /* ── NEXT STEPS ──────────────────────────────────────────────────── */
+  .steps-list { list-style: none; }
+  .steps-list li { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px; }
+  .step-num {
+    background: #1565c0; color: #fff; border-radius: 50%;
+    width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800; flex-shrink: 0; margin-top: 1px;
+    print-color-adjust: exact; -webkit-print-color-adjust: exact;
+  }
+  .step-txt { font-size: 13px; line-height: 1.6; }
+  .step-txt strong { color: #1565c0; }
+
+  /* ── VERDICT ──────────────────────────────────────────────────────── */
+  .verdict {
+    background: linear-gradient(135deg, #0a3d5c, #1565c0);
+    color: #fff; border-radius: 10px; padding: 24px 28px; margin-bottom: 20px;
+    print-color-adjust: exact; -webkit-print-color-adjust: exact;
+  }
+  .verdict .vtag { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #a3c9e8; margin-bottom: 6px; }
+  .verdict h3 { font-size: 22px; font-weight: 900; margin-bottom: 10px; }
+  .verdict p { font-size: 13px; color: #cde5f5; line-height: 1.7; }
+
+  /* ── REFS ──────────────────────────────────────────────────────────── */
+  .refs-list { counter-reset: ref-counter; padding-left: 0; list-style: none; }
+  .refs-list li { counter-increment: ref-counter; padding: 7px 0; border-bottom: 1px solid #eef1f5; font-size: 12px; display: flex; gap: 10px; }
+  .refs-list li::before { content: '[' counter(ref-counter) ']'; color: #1565c0; font-weight: 700; min-width: 32px; }
+  .refs-list a { color: #1565c0; }
+
+  /* ── FOOTER ──────────────────────────────────────────────────────── */
+  footer {
+    background: #0d1b2a; color: #4a6a87; padding: 20px 40px;
+    font-size: 11px; text-align: center; line-height: 1.8;
+    print-color-adjust: exact; -webkit-print-color-adjust: exact;
+  }
+
+  /* ── SOURCE NOTE ─────────────────────────────────────────────────── */
+  .src { font-size: 10.5px; color: #6a8baa; }
+  .src a { color: #1565c0; text-decoration: none; }
+  .src a:hover { text-decoration: underline; }
+
+  /* ── PRINT ───────────────────────────────────────────────────────── */
+  @media print {
+    body { display: block; }
+    #sidebar { display: none; }
+    #main { margin-left: 0; }
+    .hero, .section, .card, table, th, td, .swot-cell, .force-card, .pestle-card, .bcg-cell, .alert, .verdict, footer {
+      print-color-adjust: exact !important; -webkit-print-color-adjust: exact !important;
+    }
+    .section { page-break-inside: avoid; }
+    a { color: #1565c0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ SIDEBAR ═══════════════════════════ -->
+<nav id="sidebar">
+  <div class="brand">
+    <div class="tag">Market Intelligence Report · June 2026</div>
+    <h2>BRAZZEIN</h2>
+    <p>Sweet Protein · Precision Fermentation · Next-Gen Sweetener</p>
+  </div>
+  <nav>
+    <a href="#s01"><span class="num">01</span> Product Overview &amp; Identity</a>
+    <a href="#s02"><span class="num">02</span> Synthesis &amp; Manufacturing</a>
+    <a href="#s03"><span class="num">03</span> Applications &amp; Markets</a>
+    <a href="#s04"><span class="num">04</span> Market Analysis</a>
+    <a href="#s05"><span class="num">05</span> Pricing Intelligence</a>
+    <a href="#s06"><span class="num">06</span> Regulatory &amp; Compliance</a>
+    <a href="#s07"><span class="num">07</span> Target Customers</a>
+    <a href="#s08"><span class="num">08</span> Strategic Frameworks</a>
+    <a href="#s09"><span class="num">09</span> Feasibility &amp; Recommendation</a>
+    <a href="#s10"><span class="num">10</span> Sources &amp; References</a>
+  </nav>
+  <div class="meta">
+    <div>Classification: Confidential — Internal Use Only</div>
+    <div>CAS: 3095637-23-0 (fermentation-derived)</div>
+    <div>Report Date: June 2026</div>
+    <div>Prepared by: Market Intelligence Division</div>
+  </div>
+  <button class="pdf-btn" onclick="window.print()">⬇ Download PDF</button>
+</nav>
+
+<!-- ═══════════════════════════ MAIN ═══════════════════════════════ -->
+<div id="main">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="report-tag">Market Intelligence Report · June 2026</div>
+  <h1>BRAZZEIN <span>(Sweet Protein)</span></h1>
+  <p class="sub">A comprehensive strategic intelligence report covering product identity, precision fermentation synthesis, global &amp; India market analysis, pricing, regulatory compliance, and business feasibility — prepared for senior management decision-making.</p>
+  <div class="badges">
+    <span class="badge">CAS 3095637-23-0</span>
+    <span class="badge">MW ~6,473 Da</span>
+    <span class="badge">54 Amino Acids</span>
+    <span class="badge">Pentadiplandra brazzeana</span>
+    <span class="badge">Zero-Calorie</span>
+    <span class="badge">Natural Sweetener</span>
+    <span class="badge">F&amp;B Ingredient</span>
+    <span class="badge">Nutraceuticals</span>
+    <span class="badge">Pharmaceuticals</span>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="val amber">EMERGING</div><div class="lbl">Market Status<br>High-growth novel ingredient</div></div>
+    <div class="kpi"><div class="val blue">$18.7M–$183.4M</div><div class="lbl">Global Brazzein Market 2025–2026 (range across reports)</div></div>
+    <div class="kpi"><div class="val green">13–31%</div><div class="lbl">CAGR (2025–2035)<br>Fastest-growing sweetener class</div></div>
+    <div class="kpi"><div class="val amber">$24–65/kg</div><div class="lbl">Est. Fermentation Production Cost (declining rapidly)</div></div>
+    <div class="kpi"><div class="val green">FDA GRAS ✓</div><div class="lbl">US Regulatory Status<br>Multiple "No Questions" letters 2024–2025</div></div>
+    <div class="kpi"><div class="val red">Not Approved</div><div class="lbl">India FSSAI Status<br>Novel Food pathway required</div></div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ═══ SECTION 01 ═══════════════════════════════════════════════════ -->
+<div class="section" id="s01">
+  <div class="section-header"><span class="num">01</span><h2>Product Overview &amp; <span>Identity</span></h2></div>
+
+  <div class="card">
+    <div class="card-header">Chemical &amp; Biological Identity</div>
+    <div class="card-body">
+      <div class="prop-grid">
+        <div class="prop"><div class="lbl">Common Name</div><div class="val">Brazzein</div></div>
+        <div class="prop"><div class="lbl">CAS Number (fermentation)</div><div class="val">3095637-23-0</div></div>
+        <div class="prop"><div class="lbl">Molecular Weight</div><div class="val">~6,473 Da (natural); 6,304–6,389 Da (variants)</div></div>
+        <div class="prop"><div class="lbl">Amino Acid Count</div><div class="val">54 (major isoform) / 53 (brazzein-53 minor)</div></div>
+        <div class="prop"><div class="lbl">Disulfide Bonds</div><div class="val">4 intramolecular S–S bonds</div></div>
+        <div class="prop"><div class="lbl">Protein Class</div><div class="val">Sweet-tasting protein (smallest known)</div></div>
+        <div class="prop"><div class="lbl">Natural Source</div><div class="val">Pentadiplandra brazzeana Baillon (Oubli fruit, West Africa)</div></div>
+        <div class="prop"><div class="lbl">PubMed / UniProt</div><div class="val">Swiss-Prot biological database (oubli fruit protein)</div></div>
+        <div class="prop"><div class="lbl">Sweetness Potency</div><div class="val">500–2,000× sucrose (concentration-dependent)</div></div>
+        <div class="prop"><div class="lbl">Amino Acid Sequence</div><div class="val">QDKCKKVYEN YPVSKCQLAN QCNYDCKLDK HARSGECFYD EKRNLQCICD YCEY</div></div>
+        <div class="prop"><div class="lbl">Caloric Value</div><div class="val">~0 kcal (protein; metabolized as amino acids)</div></div>
+        <div class="prop"><div class="lbl">Glycemic Index</div><div class="val">Zero — no blood glucose or insulin impact</div></div>
+      </div>
+      <p class="src" style="margin-top:12px;">Sources: <a href="https://en.wikipedia.org/wiki/Brazzein" target="_blank">Wikipedia — Brazzein</a> | <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10217172/" target="_blank">PMC10217172 — Brazzein &amp; Monellin Review</a> | <a href="https://febs.onlinelibrary.wiley.com/doi/pdf/10.1016/0014-5793(94)01184-2" target="_blank">Ming et al., FEBS Letters, 1994 (Discovery paper)</a></p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Introduction</div>
+    <div class="card-body" style="font-size:13px;line-height:1.8;color:#333;">
+      <p>Brazzein is the world's <strong>smallest and most heat-stable sweet protein</strong>, naturally occurring in the extracellular pulp of the Oubli fruit (<em>Pentadiplandra brazzeana</em>), a climbing shrub native to the Atlantic coastal rainforests of Central Africa (Gabon, Cameroon). First isolated and characterised in 1989–1994, brazzein sat commercially dormant for nearly three decades — natural extraction is impossible at scale since the fruit only grows wild and in minute quantities. The commercial revolution arrived with <strong>precision fermentation</strong> circa 2022–2024, where engineered yeast strains (<em>Komagataella phaffii / Pichia pastoris</em>) now produce food-grade brazzein at industrial scale. The FDA granted its first "No Questions" GRAS letter to Oobli in March 2024, opening the US market. Brazzein's unique profile — 2,000× sucrose sweetness intensity, zero glycaemic impact, exceptional heat stability (98°C/2h), broad pH tolerance (2.5–8), and clean sucrose-like taste with no licorice aftertaste — positions it as arguably the most technically superior natural sweetener candidate ever discovered. For an India-based specialty ingredient company, Brazzein represents a rare first-mover opportunity in a pre-approval but rapidly commercialising market.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Physical &amp; Functional Properties</div>
+    <div class="card-body">
+      <table>
+        <tr><th>Property</th><th>Value / Description</th><th>Source</th></tr>
+        <tr><td>Appearance</td><td>White to off-white lyophilized (freeze-dried) powder</td><td class="src"><a href="https://www.accio.com/plp/brazzein-protein" target="_blank">Accio.com — Brazzein Protein</a></td></tr>
+        <tr><td>Physical State at RT</td><td>Powder (lyophilized); liquid concentrate forms also available</td><td class="src"><a href="https://www.smolecule.com/products/s1889001" target="_blank">Smolecule — Buy Brazzein</a></td></tr>
+        <tr><td>Solubility</td><td>Excellent aqueous solubility ≥50 mg/mL; ideal for liquid applications</td><td class="src"><a href="https://www.smolecule.com/products/s1889001" target="_blank">Smolecule</a></td></tr>
+        <tr><td>Heat Stability</td><td>Retains 100% sweetness at 98°C / 2h; at 80°C / 4h; pH 2.5–8</td><td class="src"><a href="https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/brazzein" target="_blank">ScienceDirect — Brazzein Overview</a></td></tr>
+        <tr><td>Sweetness Potency</td><td>~2,000× vs 2% sucrose; ~500–1,000× vs 8–10% sucrose solution</td><td class="src"><a href="https://febs.onlinelibrary.wiley.com/doi/pdf/10.1016/0014-5793(94)01184-2" target="_blank">Ming et al., FEBS Letters 1994</a></td></tr>
+        <tr><td>Taste Profile</td><td>Clean, sucrose-like; lingering sweetness; no licorice/metallic off-note; slight slow onset</td><td class="src"><a href="https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/brazzein" target="_blank">ScienceDirect</a></td></tr>
+        <tr><td>Allergenicity</td><td>Structural similarity to knottin allergens (Art v 1, Amb a 4); allergenicity risk flagged but not confirmed; anti-allergic activity also observed (IC50 >15 µM hexosaminidase)</td><td class="src"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10217172/" target="_blank">PMC10217172</a></td></tr>
+        <tr><td>Storage — Lyophilized</td><td>–20°C long-term; once reconstituted, 2–8°C, use within 1 week</td><td class="src"><a href="https://www.accio.com/plp/brazzein-protein" target="_blank">Accio.com</a></td></tr>
+        <tr><td>Gut Microbiome Impact</td><td>Zero — digested as protein; no disruption to gut bacteria</td><td class="src"><a href="https://www.prnewswire.com/news-releases/bestzymes-mellia-brazzein-receives-fda-no-questions-letter" target="_blank">Bestzyme FDA GRAS PR</a></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Commercial Variants / Isoforms</div>
+    <div class="card-body">
+      <table>
+        <tr><th>Variant</th><th>MW (Da)</th><th>Key Feature</th><th>Primary Use</th></tr>
+        <tr><td>Natural brazzein (major; pGlu1)</td><td>~6,473</td><td>pGlu1 N-terminus pyroglutamate form from fruit</td><td>Reference standard; research</td></tr>
+        <tr><td>des-pGlu1-brazzein (minor)</td><td>~6,346</td><td>~2× sweeter than major form; standard fermentation target</td><td>Commercial food ingredient</td></tr>
+        <tr><td>Brazzein-53 (Oobli commercial)</td><td>~6,346</td><td>53-amino-acid isoform; FDA GRAS cleared (GRN 1142)</td><td>Beverage, dairy, confectionery</td></tr>
+        <tr><td>Engineered hyper-sweet variants</td><td>6,304–6,389</td><td>1,250,000–2,800,000× sucrose; 1,500–3,570× wild brazzein</td><td>R&D / future ultra-low-dose</td></tr>
+        <tr><td>Mellia™ Brazzein (Bestzyme)</td><td>~6,473</td><td>Produced via <em>Aspergillus oryzae</em> fermentation; FDA GRAS</td><td>General-purpose food sweetener</td></tr>
+        <tr><td>FarmtoryTM Brazzein (MicroFarmtory)</td><td>≥90% brazzein</td><td>Self-affirmed GRAS; ≥90% brazzein purity</td><td>General-purpose sweetener</td></tr>
+      </table>
+      <p class="src" style="margin-top:8px;">Sources: <a href="https://www.science.gov/topicpages/s/sweet+protein+brazzein.html" target="_blank">Science.gov — Brazzein review</a> | <a href="https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/9826773" target="_blank">US Patent 9826773</a> | <a href="https://www.fda.gov/media/177329/download" target="_blank">FDA GRN 1142 (Oobli GRAS letter)</a></p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">HS Codes</div>
+    <div class="card-body">
+      <table>
+        <tr><th>Region</th><th>HS Code</th><th>Description</th></tr>
+        <tr class="india-row"><td>🇮🇳 India (ITC-HS)</td><td>3504 00 90</td><td>Peptones &amp; protein substances; other protein isolates — not elsewhere classified (fermentation-derived food-grade protein)</td></tr>
+        <tr><td>International (WCO)</td><td>3504.00</td><td>Peptones and their derivatives; other protein substances and their derivatives</td></tr>
+        <tr><td>Alternative India classification</td><td>2106 90 99</td><td>Food preparations — sweetener preparations; classified as novel food ingredient</td></tr>
+      </table>
+      <div class="alert alert-warning">⚠ HS code classification for novel protein sweeteners is complex and should be verified with a licensed customs broker/DGFT before any import/export. FSSAI novel food status determines final classification. Consult CBIC Tariff Schedule 2024–25.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 02 ═══════════════════════════════════════════════════ -->
+<div class="section" id="s02">
+  <div class="section-header"><span class="num">02</span><h2>Synthesis &amp; <span>Manufacturing</span></h2></div>
+
+  <div class="card">
+    <div class="card-header">Key Production Routes</div>
+    <div class="card-body">
+      <table>
+        <tr><th>#</th><th>Route</th><th>Host Organism</th><th>Key Conditions</th><th>Yield / Titer</th><th>Reference</th></tr>
+        <tr>
+          <td>1</td>
+          <td><strong>Precision Fermentation — Komagataella phaffii (Pichia pastoris)</strong><br><span class="tag-pill tag-green">Preferred Commercial</span></td>
+          <td>K. phaffii (yeast); engineered with brazzein gene under methanol-inducible AOX1 promoter</td>
+          <td>Fed-batch fermentation, 200,000L scale; pH 5.0; 28°C optimal; secreted directly into culture medium; downstream: filtration → chromatography → diafiltration → spray-dry</td>
+          <td>283–345 mg/L (signal peptide optimized); up to 200 MT/year capacity (MicroFarmtory)</td>
+          <td class="src"><a href="https://www.mdpi.com/2075-1729/11/1/46" target="_blank">MDPI Life, 2021</a> | <a href="https://link.springer.com/article/10.1007/s10068-026-02150-8" target="_blank">Springer Food Sci &amp; Biotech, 2026</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><strong>Precision Fermentation — Aspergillus oryzae</strong><br><span class="tag-pill tag-blue">Commercial (Bestzyme)</span></td>
+          <td>Filamentous fungus A. oryzae; food-safe GRAS host with strong secretion pathway</td>
+          <td>Industrial fermentation; protein secreted extracellularly; downstream purification to ≥80% brazzein purity; stabilized with NaCl and sodium acetate</td>
+          <td>Commercial scale; specific titers proprietary</td>
+          <td class="src"><a href="https://agfundernews.com/sweet-protein-pentasweet-breaks-ground-on-76m-precision-fermentation-facility-for-brazzein" target="_blank">AgFunder News, 2026</a> | <a href="https://www.prnewswire.com/news-releases/bestzymes-mellia-brazzein-receives-fda-no-questions-letter-302439021.html" target="_blank">Bestzyme PR, 2025</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><strong>E. coli Recombinant Expression</strong><br><span class="tag-pill tag-amber">Research / Lab Scale</span></td>
+          <td>E. coli BL21(DE3) with ompA signal leader or SNase fusion; IPTG-induced</td>
+          <td>Low-temperature induction; inclusion body formation → refolding required; ompA secretory system avoids inclusion bodies; periplasmic or extracellular secretion</td>
+          <td>Low-moderate; complex refolding step limits scale</td>
+          <td class="src"><a href="https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/11613757" target="_blank">US Patent 11613757</a> | <a href="https://www.sciencedirect.com/org/science/article/pii/S1874070723000331" target="_blank">ScienceDirect, 2023</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><strong>Kluyveromyces lactis (K. lactis)</strong><br><span class="tag-pill tag-gray">Research / Niche</span></td>
+          <td>Food-safe yeast; GRAS host; secretory expression</td>
+          <td>Standard yeast fermentation conditions; secreted brazzein in medium</td>
+          <td>Moderate; lower titers vs K. phaffii</td>
+          <td class="src"><a href="https://link.springer.com/article/10.1007/s10068-026-02150-8" target="_blank">Springer, 2026</a></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><strong>Natural Fruit Extraction (Original Method)</strong><br><span class="tag-pill tag-red">Commercially Non-Viable</span></td>
+          <td>P. brazzeana fruit pulp (extracellular fraction)</td>
+          <td>Aqueous extraction → purification; fruit only grows wild in remote West African rainforest; does not cultivate reliably outside native habitat</td>
+          <td>Negligible — trace quantities only; not scalable</td>
+          <td class="src"><a href="https://febs.onlinelibrary.wiley.com/doi/pdf/10.1016/0014-5793(94)01184-2" target="_blank">FEBS Letters, 1994</a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Key Raw Materials &amp; Inputs</div>
+    <div class="card-body">
+      <table>
+        <tr><th>Material</th><th>Role</th><th>India Availability</th><th>Notes</th></tr>
+        <tr><td>Glucose / Dextrose (carbon source)</td><td>Primary fermentation feedstock</td><td><span class="tag-pill tag-green">Widely Available</span></td><td>India is top-3 global sugar producer; glucose from sugarcane/corn widely available; key cost driver</td></tr>
+        <tr><td>Yeast nitrogen source / peptones</td><td>Fermentation media</td><td><span class="tag-pill tag-green">Available</span></td><td>Standard industrial biotech inputs</td></tr>
+        <tr><td>Engineered K. phaffii / A. oryzae strains</td><td>Production organism</td><td><span class="tag-pill tag-amber">Importable / License</span></td><td>Proprietary strains from Oobli, Bestzyme, MicroFarmtory; India biotech labs can develop own strains</td></tr>
+        <tr><td>Bioreactor equipment (10,000–200,000L)</td><td>Fermentation scale-up</td><td><span class="tag-pill tag-amber">Importable (CAPEX)</span></td><td>Praj Industries, Thermax, Alfa Laval India can supply; significant capex</td></tr>
+        <tr><td>Chromatography resins / UF membranes</td><td>Downstream purification</td><td><span class="tag-pill tag-amber">Importable</span></td><td>GE LifeSciences, Sartorius, Merck-Millipore; sourced from global suppliers</td></tr>
+        <tr><td>Methanol (for AOX1 induction, K. phaffii)</td><td>Inducer for gene expression</td><td><span class="tag-pill tag-green">Available</span></td><td>Widely available in India; safety/handling controls needed</td></tr>
+        <tr class="india-row"><td>🇮🇳 Molasses / sugarcane derivatives</td><td>Alternative low-cost carbon source</td><td><span class="tag-pill tag-green">India Advantage</span></td><td>India's sugarcane surplus → low-cost glucose/molasses substrate; potential major cost advantage for Indian fermentation</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Manufacturing Complexity Assessment</div>
+    <div class="card-body">
+      <div class="prop-grid">
+        <div class="prop"><div class="lbl">Overall Complexity</div><div class="val" style="color:#e65100;">MEDIUM–HIGH</div></div>
+        <div class="prop"><div class="lbl">Key Bottleneck</div><div class="val">Disulfide bond formation &amp; correct protein folding</div></div>
+        <div class="prop"><div class="lbl">Downstream Complexity</div><div class="val">HIGH — 3–4 step chromatographic purification</div></div>
+        <div class="prop"><div class="lbl">Fermentation Titer Challenge</div><div class="val">Current best: 283–345 mg/L (not yet at g/L)</div></div>
+        <div class="prop"><div class="lbl">Cold-chain Required</div><div class="val">YES — lyophilized at –20°C; liquid at 2–8°C</div></div>
+        <div class="prop"><div class="lbl">GMP Level</div><div class="val">Food-grade GMP; pharma-grade if excipient use</div></div>
+        <div class="prop"><div class="lbl">India Est. Setup Cost</div><div class="val">USD 20–80M (CMO route much lower: RFQ/toll)</div></div>
+        <div class="prop"><div class="lbl">Timeline to Production</div><div class="val">2–4 years (own facility); 6–12 months (CMO route)</div></div>
+      </div>
+      <div class="alert alert-success">🇮🇳 <strong>India Strategic Advantage:</strong> India's massive sugarcane and molasses surplus provides low-cost fermentation feedstock. Established biotech/fermentation infrastructure (SynBio startups, CSIR-NCL, IIT Bombay, CIAB Mohali) provides R&amp;D capability. Multiple CMOs in Pune and Hyderabad can toll-manufacture for pilot batches. India's fermentation cost structure could undercut US/EU producers by 30–40% at scale. Arthur D. Little estimates cost of production at <strong>USD 24–33/kg</strong> for P1 protein archetype (which includes brazzein) at commercial scale. <span class="src">[<a href="https://gfieurope.org/wp-content/uploads/2025/07/Pathfinding-towards-precision-fermentation-viability.pdf" target="_blank">GFI Europe, July 2025</a>]</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 03 ═══════════════════════════════════════════════════ -->
+<div class="section" id="s03">
+  <div class="section-header"><span class="num">03</span><h2>Industry Applications, End-Products &amp; <span>Application Market Sizes</span></h2></div>
+
+  <!-- 3.1 -->
+  <div class="card">
+    <div class="card-header">3.1 — Food &amp; Beverage (Primary &amp; Largest Application)</div>
+    <div class="card-body">
+      <p style="font-size:13px;line-height:1.8;margin-bottom:14px;">Brazzein's primary commercial role is as a <strong>high-intensity natural sweetener and flavour modulator</strong> in food and beverages. At 2,000× sucrose sweetness, only milligram quantities are needed. It functions both as a standalone sweetener and as a <em>synergist</em> that improves the taste profile of stevia, monk fruit, and erythritol by masking bitterness and aftertaste. Its heat stability at 98°C enables use in baked goods, UHT dairy, pasteurized beverages — categories previously inaccessible to heat-sensitive sweet proteins.</p>
+      <table>
+        <tr><th>End-Product / Application</th><th>Specific Use</th><th>Key Companies Active</th></tr>
+        <tr><td>Zero-calorie / low-sugar beverages (sodas, energy drinks, flavoured water)</td><td>Replace sucrose / HFCS; 70%+ sugar reduction; heat-stable in hot-fill processes</td><td>Coca-Cola (3 Brazzein-formulated lines launched 2025), PepsiCo, Ocean Spray (exploring)</td></tr>
+        <tr><td>Chocolate &amp; confectionery</td><td>Oobli's flagship: brazzein chocolate bars with 70% less sugar; coating on confectionery</td><td>Oobli Foods (Davis, CA), Grupo Bimbo (piloting)</td></tr>
+        <tr><td>Dairy products (yogurt, milk beverages, ice cream)</td><td>Sugar reduction in fermented dairy without degradation at pasteurization temps</td><td>Nestlé, Danone, Amul (potential India), Herbalife</td></tr>
+        <tr><td>Bakery &amp; cereals</td><td>Heat-stable (98°C/2h) enabling sugar reduction in baked goods — rare for sweet proteins</td><td>General Mills, Mondelēz, Grupo Bimbo, Britannia (India potential)</td></tr>
+        <tr><td>Sweetener blends (stevia/brazzein, erythritol/brazzein)</td><td>Brazzein masks stevia aftertaste; reduces total sweetener cost; enables 30–40% reduction in expensive monk fruit or stevia</td><td>Sweegen (Sweetensify™ brand), Ingredion+Oobli partnership, Tate &amp; Lyle</td></tr>
+        <tr><td>Protein shakes &amp; sports nutrition</td><td>Natural sweetening without bulk sugar; clean-label positioning; keto-compatible</td><td>Nature's Way, NBTY, Herbalife, Abbott (global); Wellversed, Oziva (India potential)</td></tr>
+      </table>
+      <table style="margin-top:14px;">
+        <tr><th>Market Segment</th><th>Global Size &amp; Forecast</th><th>CAGR</th><th>Key Players</th><th>Source</th></tr>
+        <tr><td>Global Brazzein market (conservative)</td><td>$18.7M (2026) → $218M (2035)</td><td>31.4%</td><td>Oobli, Sweegen/Conagen, Bestzyme, Ingredion</td><td class="src"><a href="https://markwideresearch.com/brazzein-market" target="_blank">MarkWide, May 2026</a></td></tr>
+        <tr><td>Global Brazzein market (mid-range)</td><td>$183.4M (2025) → $412.7M (2034)</td><td>9.8%</td><td>Cargill, PureCircle, Sweegen, Oobli</td><td class="src"><a href="https://dataintelo.com/report/global-brazzein-market" target="_blank">DataIntelo, 2026</a></td></tr>
+        <tr><td>India sweeteners market (total)</td><td>USD 3.54B (2024) → USD 5.80B (2033)</td><td>5.23%</td><td>Cargill, Tate &amp; Lyle, SugarFed, PureCircle (India)</td><td class="src"><a href="https://www.imarcgroup.com/india-sweeteners-market" target="_blank">IMARC Group, 2025</a></td></tr>
+        <tr class="india-row"><td>🇮🇳 India functional beverages</td><td>USD 6.9B (2025) → USD 18.8B (2034)</td><td>10.74%</td><td>Tata Consumer, HUL, Dabur, Reliance (Raskik), Paper Boat</td><td class="src"><a href="https://www.imarcgroup.com/india-functional-beverages-market" target="_blank">IMARC Group, 2025</a></td></tr>
+        <tr><td>Global functional beverages</td><td>USD 168B (2025) → USD 314B (2035)</td><td>6.44%</td><td>PepsiCo, Coca-Cola, Nestlé, Red Bull</td><td class="src"><a href="https://www.precedenceresearch.com/functional-beverages-market" target="_blank">Precedence Research, 2025</a></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 3.2 -->
+  <div class="card">
+    <div class="card-header">3.2 — Pharmaceuticals &amp; Drug Formulation (Taste-Masking)</div>
+    <div class="card-body">
+      <p style="font-size:13px;line-height:1.8;margin-bottom:12px;">In pharmaceutical formulations, brazzein serves as a <strong>taste-masking agent</strong> for bitter APIs in oral liquid dosage forms (syrups, suspensions, orodispersible tablets). Its protein nature, high-intensity sweetening at micro-doses, clean taste, and stability in acidic/aqueous environments make it suitable for paediatric and geriatric medications. This is an adjacent revenue stream requiring <em>excipient-grade purity</em> and relevant FDA drug master file (DMF) documentation.</p>
+      <table>
+        <tr><th>Application</th><th>Details</th><th>Companies Active / Potential</th></tr>
+        <tr><td>Paediatric liquid syrups</td><td>Mask bitterness of antibiotics, antivirals at micro-gram doses; no caloric addition</td><td>Cipla, Sun Pharma, Abbott (India); Pfizer globally</td></tr>
+        <tr><td>Orodispersible / chewable tablets</td><td>Sub-mg inclusion masks bitter API taste; improves patient compliance</td><td>Lupin, Glenmark, Dr. Reddy's</td></tr>
+        <tr><td>Diabetic-specific pharmaceutical formulations</td><td>Zero glycaemic sweetener in oral medications for diabetic patients</td><td>Novo Nordisk, Sanofi, Sun Pharma, Biocon</td></tr>
+      </table>
+      <div class="alert alert-info">ℹ Pharmaceutical excipient use requires higher purity specification (≥95% brazzein protein), pharmacopoeial characterisation, stability data, and DMF filing. This is a separate, higher-value SKU vs food-grade. Market is global but path is longer.</div>
+    </div>
+  </div>
+
+  <!-- 3.3 -->
+  <div class="card">
+    <div class="card-header">3.3 — Nutraceuticals, Sports Nutrition &amp; Wellness</div>
+    <div class="card-body">
+      <p style="font-size:13px;line-height:1.8;margin-bottom:12px;">The fastest-growing adjacent application. Brazzein is suited for <strong>keto, diabetic-friendly, vegan, and clean-label</strong> nutraceutical formulations. India's nutraceutical market is growing at ~14–16% CAGR, and diabetic-focused nutrition is a key growth category with 101 million diabetics in India as of 2023.</p>
+      <table>
+        <tr><th>End-Product</th><th>Brazzein Role</th><th>Target Companies (India)</th></tr>
+        <tr><td>Protein powders / WPI supplements</td><td>Natural zero-calorie sweetening without sucrose or sucralose</td><td>Muscleblaze (HHO), AS-IT-IS Nutrition, Oziva, Fast&amp;Up</td></tr>
+        <tr><td>Collagen drinks &amp; beauty nutrition</td><td>Sweetens without disrupting collagen content; clean label</td><td>Wellversed, The Good Bug, Kapiva</td></tr>
+        <tr><td>Diabetic-specific meal replacement</td><td>Zero GI sweetening in clinical nutrition shakes</td><td>Abbott (Glucerna), Himalaya, Mankind Pharma</td></tr>
+        <tr><td>Chewable vitamins / gummy supplements</td><td>Replaces sucrose/glucose syrup in gummies</td><td>Healthkart, Zingavita, Carbamide Forte</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 3.4 -->
+  <div class="card">
+    <div class="card-header">3.4 — Cosmetics, Personal Care &amp; Oral Care</div>
+    <div class="card-body">
+      <p style="font-size:13px;line-height:1.8;margin-bottom:12px;">Emerging application: brazzein as a <strong>flavour modulator and sweetening agent</strong> in oral care products (mouthwash, toothpaste, mouth sprays) and cosmeceutical oral supplements. Non-glycaemic profile means it does not cause tooth decay — an advantage over sucrose-containing flavoured oral care products.</p>
+      <table>
+        <tr><th>Application</th><th>Use</th><th>Key Global Players</th></tr>
+        <tr><td>Toothpaste / oral rinse</td><td>Sweetening mint-flavoured formulations without sugar</td><td>Colgate-Palmolive, Dabur (Red toothpaste), Himalaya</td></tr>
+        <tr><td>Lip care / flavoured cosmetics</td><td>Non-caloric sweet flavour in lip-safe formulations</td><td>Niche cosmetic brands; exploration stage</td></tr>
+      </table>
+      <div class="alert alert-warning">⚠ Cosmetic use is an emerging/exploratory application globally — limited commercial products confirmed as of June 2026. Market opportunity is real but secondary priority.</div>
+    </div>
+  </div>
+
+  <!-- 3.5 -->
+  <div class="card">
+    <div class="card-header">3.5 — Research, Reference Standards &amp; Metabolite Studies</div>
+    <div class="card-body">
+      <p style="font-size:13px;line-height:1.8;margin-bottom:12px;">Brazzein is an active subject of <strong>structural biology, sweet taste receptor research, and protein engineering</strong>. It binds to the cysteine-rich domain of human T1R3 sweet receptor (unlike small-molecule sweeteners), making it a key research tool in gustatory science. CRO and analytical reference grade supply is an immediate entry point.</p>
+      <table>
+        <tr><th>Research Type</th><th>Use</th><th>Key Buyers</th></tr>
+        <tr><td>Sweet taste receptor studies</td><td>T1R2/T1R3 binding; mutation studies; structure-activity mapping</td><td>Academia globally; CSIR-CFTRI (India), IIT Bombay</td></tr>
+        <tr><td>Protein engineering platforms</td><td>Template for AI-designed sweet protein variants (Amai Proteins model)</td><td>Biotech startups, CDMO R&amp;D labs</td></tr>
+        <tr><td>Analytical reference standard</td><td>Chromatographic characterisation, mass spec calibration</td><td>LGC Standards, Sigma-Aldrich (Merck), Eurofins</td></tr>
+        <tr class="india-row"><td>🇮🇳 Indian academic/CRO supply</td><td>Research-grade brazzein supply for taste science and precision fermentation R&amp;D</td><td>CSIR-CFTRI Mysuru, IIT Bombay BioTech, TIFR, Syngene CRO</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 04 ═══════════════════════════════════════════════════ -->
+<div class="section" id="s04">
+  <div class="section-header"><span class="num">04</span><h2>Market <span>Analysis</span></h2></div>
+
+  <div class="alert alert-warning">⚠ <strong>Data Caveat:</strong> Brazzein is a nascent commercial market with highly variable market size estimates across research firms — ranging from USD 18.7M to USD 206M+ for 2025–2026. This wide range reflects different scope definitions (pure brazzein vs sweetener systems), CAGR assumptions, and the product's early commercialisation stage. Conservative figures are used in this report. All figures are flagged accordingly.</div>
+
+  <div class="card">
+    <div class="card-header">4A — Global Market</div>
+    <div class="card-body">
+      <table>
+        <tr><th>Metric</th><th>Value</th><th>Source</th></tr>
+        <tr><td>Global Brazzein market size, 2025–2026 (conservative)</td><td>USD 18.7M (2026) [MarkWide, May 2026]</td><td class="src"><a href="https://markwideresearch.com/brazzein-market" target="_blank">MarkWide Research, May 2026</a></td></tr>
+        <tr><td>Global Brazzein market size, 2025 (mid)</td><td>USD 183.4M (2025) [DataIntelo]; USD 206M (MarketReportsWorld)</td><td class="src"><a href="https://dataintelo.com/report/global-brazzein-market" target="_blank">DataIntelo</a> | <a href="https://www.marketreportsworld.com/market-reports/brazzein-market-14720788" target="_blank">MarketReportsWorld</a></td></tr>
+        <tr><td>Forecast 2033–2035 (range)</td><td>USD 218M–USD 655M</td><td class="src"><a href="https://markwideresearch.com/brazzein-market" target="_blank">MarkWide</a> | <a href="https://www.marketreportsworld.com/market-reports/brazzein-market-14720788" target="_blank">MarketReportsWorld, 2026</a></td></tr>
+        <tr><td>CAGR (best estimate range)</td><td>9.8%–31.4% (consensus ~13–21%)</td><td class="src">Multiple market research firms</td></tr>
+        <tr><td>Leading application (2025)</td><td>Food &amp; Beverages — 55–58% market share</td><td class="src"><a href="https://marketintelo.com/report/brazzein-market" target="_blank">MarketIntelo, 2025</a></td></tr>
+        <tr><td>Key demand drivers</td><td>Sugar taxes (28+ countries), diabetes/obesity epidemic, clean-label consumer shift, FDA GRAS approvals enabling commercial launch</td><td class="src"><a href="https://www.marketreportsworld.com/market-reports/brazzein-market-14720788" target="_blank">MarketReportsWorld, 2026</a></td></tr>
+        <tr><td>Key growth inflection (2024)</td><td>Oobli FDA GRAS "No Questions" (March 2024); Bestzyme GRAS (April 2025); Pentasweet $76M EU facility groundbreak (2026)</td><td class="src"><a href="https://agfundernews.com/sweet-protein-pentasweet-breaks-ground-on-76m-precision-fermentation-facility-for-brazzein" target="_blank">AgFunder, 2026</a></td></tr>
+        <tr><td>Powder vs liquid split</td><td>Powder: 68% share (2025); Liquid: fastest-growing segment</td><td class="src"><a href="https://www.persistencemarketresearch.com/market-research/brazzein-market.asp" target="_blank">Persistence Market Research</a></td></tr>
+        <tr><td>North America market share</td><td>~38–44% (2024–2025); US leads due to GRAS framework + innovation ecosystem</td><td class="src"><a href="https://marketintelo.com/report/brazzein-market" target="_blank">MarketIntelo</a></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">4B — India Market</div>
+    <div class="card-body">
+      <table>
+        <tr><th>Metric</th><th>Assessment</th><th>Source</th></tr>
+        <tr class="india-row"><td>🇮🇳 India domestic brazzein production</td><td>Zero — not yet manufactured commercially in India. 100% import-dependent.</td><td class="src">Market survey; no Indian producer found</td></tr>
+        <tr class="india-row"><td>🇮🇳 FSSAI approval status</td><td>NOT APPROVED as food ingredient as of June 2026. Falls under Novel Food category (FSS Health Supplements &amp; Novel Food Regulations 2016/2022). Application required.</td><td class="src"><a href="https://www.fssai.gov.in/" target="_blank">FSSAI.gov.in</a></td></tr>
+        <tr class="india-row"><td>🇮🇳 India brazzein demand horizon</td><td>Pre-commercial stage — R&amp;D / CRO demand exists; consumer food use dependent on FSSAI approval (estimated 2027–2028 if filed promptly)</td><td class="src">Estimated based on regulatory timeline</td></tr>
+        <tr class="india-row"><td>🇮🇳 India sweetener market opportunity</td><td>USD 26.4B (2025) → USD 41.2B (2031); brazzein positioned in high-intensity natural segment with stevia, monk fruit</td><td class="src"><a href="https://mobilityforesights.com/product/india-food-sweetener-market" target="_blank">MobilityForesights, 2025</a></td></tr>
+        <tr class="india-row"><td>🇮🇳 India diabetic population</td><td>~101 million diabetics (2023); world's largest — massive demand for zero-GI sweeteners</td><td class="src">International Diabetes Federation 2023</td></tr>
+        <tr class="india-row"><td>🇮🇳 India functional beverage market</td><td>USD 6.9B (2025) → USD 18.8B (2034) at 10.74% CAGR; fastest-growing application for brazzein</td><td class="src"><a href="https://www.imarcgroup.com/india-functional-beverages-market" target="_blank">IMARC Group</a></td></tr>
+        <tr class="india-row"><td>🇮🇳 Key consuming clusters (future)</td><td>F&amp;B: Pune, Mumbai, Bengaluru, Chennai; Nutraceuticals: Hyderabad, Bengaluru; Pharma: Mumbai, Hyderabad, Ahmedabad</td><td class="src">Industry geography</td></tr>
+        <tr class="india-row"><td>🇮🇳 India fermentation advantage</td><td>Sugarcane surplus, established biotech infrastructure (CIAB, CSIR-NCL, IIT Bombay); brazzein production cost could be 30–40% below US counterparts</td><td class="src"><a href="https://gfieurope.org/wp-content/uploads/2025/07/Pathfinding-towards-precision-fermentation-viability.pdf" target="_blank">GFI Europe, 2025</a></td></tr>
+        <tr class="india-row"><td>🇮🇳 Consumer readiness</td><td>36% urban Indians concerned about sugar content in packaged beverages; growing clean-label demand; health &amp; wellness market doubling to INR 4.8 lakh crore by 2026</td><td class="src"><a href="https://www.kenresearch.com/industry-reports/india-food-and-beverage-market" target="_blank">Ken Research</a></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">4C — Major Manufacturing Countries &amp; Supply Landscape</div>
+    <div class="card-body">
+      <table>
+        <tr><th>Country / Region</th><th>Role</th><th>Est. Share</th><th>Notes</th></tr>
+        <tr><td>🇺🇸 USA</td><td>Technology leader; commercial production; primary consumer market</td><td><span class="tag-pill tag-green">Dominant — 40–50%</span></td><td>Oobli (Davis CA), Sweegen/Conagen (Boston/China), MicroFarmtory; FDA GRAS-cleared products already commercial</td></tr>
+        <tr><td>🇨🇳 China</td><td>Rapid scale-up; multiple producers; export-oriented</td><td><span class="tag-pill tag-amber">~25–35%</span></td><td>Bestzyme (Nanjing; Aspergillus fermentation); Aquafarmtory; not yet NMPA-approved for domestic Chinese food use</td></tr>
+        <tr><td>🇱🇹 Lithuania / EU</td><td>First European production facility under construction</td><td><span class="tag-pill tag-gray">~5% (rising)</span></td><td>Pentasweet — €76M facility at Vilnius Innovation Park; targeting EU novel food approval</td></tr>
+        <tr><td>🇲🇽 Mexico</td><td>CMO production for Oobli</td><td><span class="tag-pill tag-gray">~5%</span></td><td>Oobli produces in 200,000L CMO tanks in Mexico; expanding</td></tr>
+        <tr class="india-row"><td>🇮🇳 India</td><td>No current production — strategic future opportunity</td><td><span class="tag-pill tag-red">0% → Opportunity</span></td><td>India has biotech, sugarcane substrate, and CMO capacity; first-mover advantage available</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">4D — Major Global Manufacturers &amp; Suppliers</div>
+    <div class="card-body">
+      <table>
+        <tr><th>Company</th><th>Country</th><th>Role</th><th>Notes</th><th>Website</th></tr>
+        <tr><td>Oobli (formerly Joywell Foods)</td><td>USA</td><td>Commercial sweet protein platform; brazzein + monellin</td><td>First FDA GRAS "No Questions" for brazzein (March 2024); $50M raised; Ingredion partnership; 200,000L CMO tanks</td><td class="src"><a href="https://oobli.com" target="_blank">oobli.com</a></td></tr>
+        <tr><td>Sweegen / Conagen</td><td>USA / China</td><td>Precision fermentation; Sweetensify™ brand blends</td><td>FEMA GRAS brazzein; Conagen produces in Boston + Eastern Europe facility; pairs with Bestevia stevia</td><td class="src"><a href="https://sweegen.com" target="_blank">sweegen.com</a></td></tr>
+        <tr><td>Bestzyme (GenScript subsidiary)</td><td>China</td><td>Mellia™ Brazzein; FDA GRAS "No Questions" April 2025</td><td>Uses A. oryzae; industrial scale; targeting global market via parent GenScript's distribution</td><td class="src"><a href="https://www.prnewswire.com/news-releases/bestzymes-mellia-brazzein-receives-fda-no-questions-letter-302439021.html" target="_blank">PR Newswire</a></td></tr>
+        <tr><td>MicroFarmtory (Aquafarmtory)</td><td>China / USA</td><td>FarmtoryTM Brazzein; 30MT→200MT capacity</td><td>FDA Self-GRAS (March 2025); capacity growing to 200 MT/year pure brazzein; claims cost-competitive with sugar in-use</td><td class="src"><a href="https://www.foodtalks.cn/en/news/57039" target="_blank">FoodTalks</a></td></tr>
+        <tr><td>Pentasweet</td><td>Lithuania</td><td>First European production facility; EFSA filing 2026</td><td>$76M precision fermentation facility at Vilnius; founder-funded + Lithuanian NDB loan; Europe-focused</td><td class="src"><a href="https://agfundernews.com/sweet-protein-pentasweet-breaks-ground-on-76m-precision-fermentation-facility-for-brazzein" target="_blank">AgFunder</a></td></tr>
+        <tr><td>Ingredion Incorporated</td><td>USA (Global)</td><td>Distribution partner; co-formulation with Oobli</td><td>$18M invested in Oobli Series B1; distributes to 120+ countries; pairing brazzein with PureCircle stevia</td><td class="src"><a href="https://www.prnewswire.com/news-releases/oobli-and-ingredion-announce-partnership-as-demand-for-sweet-proteins-accelerates-302375717.html" target="_blank">PRNewswire</a></td></tr>
+        <tr><td>Amai Proteins</td><td>Israel</td><td>AI-designed novel sweet proteins; competitor &amp; inspiration</td><td>$100M raised; designing new proteins from scratch via AI; brazzein-adjacent</td><td class="src"><a href="https://www.greenqueen.com.hk/oobli-sweet-protein-chocolate-fruit-ingredion-ozempic-sugar/" target="_blank">GreenQueen</a></td></tr>
+        <tr><td>Tate &amp; Lyle / Cargill</td><td>UK / USA</td><td>Large ingredient companies entering brazzein</td><td>Tate &amp; Lyle: formulation expertise for blending; Cargill: 18.4% est. market share in brazzein segment (DataIntelo)</td><td class="src"><a href="https://markwideresearch.com/brazzein-market" target="_blank">MarkWide</a></td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 05 ═══════════════════════════════════════════════════ -->
+<div class="section" id="s05">
+  <div class="section-header"><span class="num">05</span><h2>Pricing <span>Intelligence</span></h2></div>
+
+  <div class="alert alert-warning">⚠ <strong>Pricing Caveat:</strong> Brazzein is a nascent commercial ingredient. Bulk commercial pricing is largely on RFQ basis from producers. Published production cost estimates are more reliable than market prices, which vary significantly by purity grade, volume, and supplier. All figures below represent best estimates from public sources and industry reports as of Q1–Q2 2026.</div>
+
+  <div class="card">
+    <div class="card-header">Price by Quantity Scale</div>
+    <div class="card-body">
+      <table>
+        <tr><th>Scale</th><th>Price Range (USD/kg)</th><th>Approx INR</th><th>Grade</th><th>Source</th></tr>
+        <tr><td>Micro (1–10g) — Research / Reference</td><td>USD 500–5,000+/g equivalent<br>(very small quantity, reference grade)</td><td>₹41,500–₹4.15L per gram</td><td>≥95% brazzein protein; research grade</td><td class="src">Research chemical suppliers; estimated from comparable sweet proteins</td></tr>
+        <tr><td>Small (100g–1kg) — CRO / R&amp;D Pilot</td><td>USD 1,000–5,000/kg</td><td>₹83,000–₹4.15L/kg</td><td>Food-grade ≥80% brazzein</td><td class="src">RFQ basis; estimated from MicroFarmtory/Bestzyme commercial positioning</td></tr>
+        <tr><td>Medium (10–100kg) — Ingredient Trial</td><td>USD 200–1,000/kg (declining)</td><td>₹16,600–₹83,000/kg</td><td>Food-grade ≥80%</td><td class="src"><a href="https://dataintelo.com/report/global-brazzein-market" target="_blank">DataIntelo — production cost $45–65/kg est. 2026</a></td></tr>
+        <tr><td>Bulk (1MT+) — Commercial Scale</td><td>USD 45–100/kg (production cost est.)<br>Market sell price: USD 100–300/kg est.</td><td>₹3,700–₹24,900/kg</td><td>Technical food-grade</td><td class="src"><a href="https://gfieurope.org/wp-content/uploads/2025/07/Pathfinding-towards-precision-fermentation-viability.pdf" target="_blank">GFI Europe Arthur D. Little ($24–33/kg production cost)</a> | <a href="https://dataintelo.com/report/global-brazzein-market" target="_blank">DataIntelo ($45–65/kg commercial est.)</a></td></tr>
+        <tr class="india-row"><td>🇮🇳 India landed cost estimate (imported)</td><td>Add 25–35% to FOB price: BCD (Basic Customs Duty on novel food protein typically 30%) + IGST 5% (food additive) + freight/insurance + cold-chain</td><td>Significant cost addition on imported bulk</td><td>Any grade</td><td class="src">DGFT Tariff Schedule; customs broker estimate</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Price Trend &amp; Cost Dynamics</div>
+    <div class="card-body">
+      <table>
+        <tr><th>Factor</th><th>Direction</th><th>Assessment</th></tr>
+        <tr><td>Production cost trend</td><td class="green">↓ Rapidly Declining</td><td>From ~$1M/kg in 2000 to $100/kg recently; now approaching $24–65/kg at commercial fermentation scale. MicroFarmtory claims cost-competitive with sugar in-use at scale</td></tr>
+        <tr><td>Market price trend</td><td class="amber">↓ Declining (lagging production cost)</td><td>As capacity expands (Pentasweet, MicroFarmtory to 200MT) and multiple producers compete, market prices expected to fall ~30–50% by 2028</td></tr>
+        <tr><td>vs Stevia (Reb M)</td><td class="green">Competitive</td><td>Stevia extract: $35–55/kg. Brazzein production cost approaching this; but required dose is 2,000× lower than sucrose vs stevia's 250–300× — far more favourable cost-in-use</td></tr>
+        <tr><td>vs Monk fruit extract</td><td class="green">Advantaged</td><td>Monk fruit: $75–120/kg. Brazzein at $45–65/kg production cost already cheaper; superior taste profile</td></tr>
+        <tr><td>India manufacturing cost advantage</td><td class="green">+30–40% cost saving</td><td>Low-cost glucose (sugarcane), lower labour/energy costs vs US. India CMO toll fermentation could produce at $15–25/kg at scale</td></tr>
+        <tr><td>Currency risk (India import)</td><td class="amber">Moderate risk</td><td>USD/INR volatile; hedge on larger orders. INR depreciation adds to import cost</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 06 ═══════════════════════════════════════════════════ -->
+<div class="section" id="s06">
+  <div class="section-header"><span class="num">06</span><h2>Regulatory, Licensing &amp; <span>Compliance</span></h2></div>
+
+  <div class="card">
+    <div class="card-header">Global Regulatory Status Table</div>
+    <div class="card-body">
+      <table>
+        <tr><th>Country/Region</th><th>Body</th><th>Status</th><th>License/Permit</th><th>Key Conditions</th><th>Source</th></tr>
+        <tr class="india-row">
+          <td>🇮🇳 India</td>
+          <td>FSSAI; DGFT; MoHFW</td>
+          <td><span class="tag-pill tag-red">NOT APPROVED</span> Novel Food</td>
+          <td>Novel Food application under FSS (HS&amp;NF) Regulations; IEC for import; FSSAI Central License for distribution</td>
+          <td>Must file Novel Food dossier with FSSAI; approval timeline est. 18–36 months. Research-grade import possible under research exemption. No SCOMET restriction.</td>
+          <td class="src"><a href="https://www.fssai.gov.in/" target="_blank">FSSAI.gov.in</a></td>
+        </tr>
+        <tr>
+          <td>🇺🇸 USA</td>
+          <td>FDA (CFSAN)</td>
+          <td><span class="tag-pill tag-green">APPROVED — GRAS</span></td>
+          <td>Multiple "No Questions" GRAS letters: Oobli GRN 1142 (March 2024), Bestzyme Mellia™ (April 2025), MicroFarmtory FarmtoryTM, Sweegen (pending)</td>
+          <td>General-purpose sweetener in food; excludes infant formula, meat &amp; poultry products; FEMA GRAS (flavour use) also secured by Sweegen</td>
+          <td class="src"><a href="https://www.fda.gov/media/177329/download" target="_blank">FDA GRN 1142</a></td>
+        </tr>
+        <tr>
+          <td>🇪🇺 European Union</td>
+          <td>EFSA; European Commission</td>
+          <td><span class="tag-pill tag-amber">PENDING — Under Review</span></td>
+          <td>Novel Food application under Reg. 2015/2283; Ingredion filed dossier for recombinant brazzein Q4 2023; EFSA scientific assessment underway</td>
+          <td>EU process takes 2.5–4+ years; no precision-fermented protein yet approved as of early 2026; multiple clock-stop rounds expected</td>
+          <td class="src"><a href="https://www.biosafe.fi/insight/precision-fermentation-is-ready-eu-novel-food-approval-isnt" target="_blank">Biosafe.fi, March 2026</a></td>
+        </tr>
+        <tr>
+          <td>🇨🇳 China</td>
+          <td>NMPA; SAMR; NHC</td>
+          <td><span class="tag-pill tag-red">NOT APPROVED</span> (domestic use)</td>
+          <td>New Food Ingredient (新食品原料) registration required; multiple Chinese companies producing for export but not yet cleared for China domestic food use</td>
+          <td>Regulatory review underway; SAMR food additive pathway being explored; expected approval 2026–2027</td>
+          <td class="src"><a href="https://www.foodtalks.cn/en/news/57039" target="_blank">FoodTalks, 2025</a></td>
+        </tr>
+        <tr>
+          <td>🇯🇵 Japan</td>
+          <td>MHLW; METI; FSCJ</td>
+          <td><span class="tag-pill tag-amber">No specific approval found</span></td>
+          <td>Food with Function Claims (FFC) or Novel Food notification; Japan increasingly open to precision fermentation ingredients</td>
+          <td>Evaluate under Existing Additives List or as novel ingredient; Japan sweetener market receptive</td>
+          <td class="src">Industry assessment; no public regulatory filing found</td>
+        </tr>
+        <tr>
+          <td>🇦🇺 Australia / NZ</td>
+          <td>FSANZ</td>
+          <td><span class="tag-pill tag-green">Approvals emerging</span></td>
+          <td>Food Standards Code alignment; emerging approvals; 13 new commercial brazzein facilities globally as of Q1 2026 (per DataIntelo)</td>
+          <td>Australia aligning with international standards; submission recommended</td>
+          <td class="src"><a href="https://dataintelo.com/report/global-brazzein-market" target="_blank">DataIntelo, 2026</a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">🇮🇳 India Detailed Regulatory Sub-Section</div>
+    <div class="card-body">
+      <table>
+        <tr><th>Requirement</th><th>Details</th></tr>
+        <tr class="india-row"><td>Novel Food Application (FSSAI)</td><td>Brazzein (fermentation-derived) falls under FSS (Health Supplements, Nutraceuticals, Novel Foods) Regulations 2016 (revised 2022). Must file application with: (a) technical dossier including safety data, manufacturing process, specifications; (b) toxicological evaluation; (c) history of use / substantial equivalence argument. FSSAI Scientific Committee review required.</td></tr>
+        <tr class="india-row"><td>Import Permission (Research)</td><td>IEC (Import Export Code from DGFT) mandatory. Non-scheduled chemical/protein. Import under HS 3504 / 2106 for R&amp;D or analytical purposes is permissible. FSSAI novel food status does NOT apply to R&amp;D imports (handled separately). Cold-chain transport compliance must be documented.</td></tr>
+        <tr class="india-row"><td>Commercial Import (Post-Approval)</td><td>After FSSAI approval: IEC + FSSAI Central License for food business. Customs duty: Basic Customs Duty (30% typical for novel food proteins) + IGST 5% (food category, confirm). Apply for any duty exemption under relevant notification.</td></tr>
+        <tr class="india-row"><td>Manufacturing in India</td><td>Factory License under Factories Act (state Inspectorate); FSSAI Central/State License (food business); Environment Clearance if scale exceeds EIA threshold; Consent to Establish &amp; Operate from State PCB; GMO/rDNA product registration under DBT-RCGM (Recombinant DNA Advisory Committee) if using engineered yeast strains</td></tr>
+        <tr class="india-row"><td>GMO/rDNA Compliance</td><td>CRITICAL — precision fermentation using engineered K. phaffii requires review by Review Committee on Genetic Manipulation (RCGM) under MoST / DBT. Contained use provisions under Environment Protection Act, 1986 and Rules for the Manufacture, Use, Import, Export and Storage of Hazardous Microorganisms. This is India's key regulatory complexity for domestic manufacturing.</td></tr>
+        <tr class="india-row"><td>Pharmaceutical Use</td><td>If sold as excipient to pharma: Drug License under Drugs &amp; Cosmetics Act; Good Manufacturing Practice (Schedule M) compliance; DMF filing with CDSCO for each batch specification</td></tr>
+        <tr class="india-row"><td>Export from India</td><td>IEC + GST registration; No SCOMET restriction (non-strategic); Comply with destination country's import regulations (FDA GRAS needed for US; EFSA for EU)</td></tr>
+      </table>
+      <div class="alert alert-info">🇮🇳 <strong>India Regulatory Summary:</strong> Brazzein does NOT currently have FSSAI approval for use as a food ingredient in India. The commercially viable path is: (1) immediately import research/analytical grade for CRO and ingredient development work; (2) file FSSAI Novel Food dossier within 6–9 months (estimated approval 2027–2028); (3) register engineered production strains with DBT-RCGM if manufacturing in India. This regulatory complexity is actually a <em>competitive moat</em> — the first company to secure FSSAI approval creates a significant first-mover advantage in India's massive food &amp; beverage market.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 07 ═══════════════════════════════════════════════════ -->
+<div class="section" id="s07">
+  <div class="section-header"><span class="num">07</span><h2>Potential Customers &amp; <span>Target Companies</span></h2></div>
+
+  <div class="card">
+    <div class="card-header">7A — Indian Target Companies (Minimum 10)</div>
+    <div class="card-body">
+      <table>
+        <tr><th>Company</th><th>Segment</th><th>Location</th><th>Why a Target</th><th>Website</th></tr>
+        <tr class="india-row"><td>Tata Consumer Products</td><td>F&amp;B (Beverages, Tea, Nutritional)</td><td>Mumbai</td><td>Owns Tata Gluco+ and NourishCo brands; active low-sugar RTD beverage R&amp;D; announced plant-based protein and sugar-reduction initiative (Nov 2024); ideal early adopter for brazzein-stevia blend trials</td><td class="src"><a href="https://www.tataconsumer.com" target="_blank">tataconsumer.com</a></td></tr>
+        <tr class="india-row"><td>Hindustan Unilever Ltd. (HUL)</td><td>F&amp;B (Horlicks, Boost, Kwality Wall's)</td><td>Mumbai</td><td>Actively upgrading Horlicks/Boost manufacturing to reduce sugar (Oct 2024 announcement); Kwality Wall's ice cream reformulation; massive distribution to deploy brazzein across categories post-FSSAI approval</td><td class="src"><a href="https://www.hul.co.in" target="_blank">hul.co.in</a></td></tr>
+        <tr class="india-row"><td>Dabur India Ltd.</td><td>F&amp;B &amp; FMCG (Real juices, health shots)</td><td>Ghaziabad, UP</td><td>Launched wellness shots range (March 2025); Real juice brand actively reducing sugar; natural ingredient positioning aligns with brazzein; ayurvedic-plus-science narrative fits brand</td><td class="src"><a href="https://www.dabur.com" target="_blank">dabur.com</a></td></tr>
+        <tr class="india-row"><td>ITC Limited (Bingo!, Sunfeast, Fiama)</td><td>F&amp;B &amp; FMCG</td><td>Kolkata</td><td>Sunfeast biscuits &amp; Dark Fantasy — active sugar reduction; ITC launched "Farmland" low-sugar products (Aug 2023); diverse categories (biscuits, chocolates, beverages) where brazzein can enable premium health-claim SKUs</td><td class="src"><a href="https://www.itcportal.com" target="_blank">itcportal.com</a></td></tr>
+        <tr class="india-row"><td>Parle Products Pvt. Ltd.</td><td>Biscuits, Confectionery</td><td>Mumbai</td><td>Largest Indian biscuit manufacturer; active in sugar-free product line development for diabetic consumers; brazzein's heat stability critical for baking applications</td><td class="src"><a href="https://www.parleproducts.com" target="_blank">parleproducts.com</a></td></tr>
+        <tr class="india-row"><td>Cipla Ltd.</td><td>Pharmaceuticals (generics, OTC)</td><td>Mumbai</td><td>Major paediatric and consumer pharma brands (Cipla Health, ActivKids); brazzein as taste-masking excipient in paediatric syrups (antibiotics, vitamins) is a direct opportunity; procurement of excipient-grade brazzein</td><td class="src"><a href="https://www.cipla.com" target="_blank">cipla.com</a></td></tr>
+        <tr class="india-row"><td>Wellversed Health Pvt. Ltd.</td><td>Nutraceuticals (Keto, diabetic, protein)</td><td>Gurugram, Haryana</td><td>Keto-certified nutrition brand; zero-sugar product lines; natural sweetener procurement for protein bars, shakes; high alignment with brazzein's zero-GI profile</td><td class="src"><a href="https://www.wellversed.in" target="_blank">wellversed.in</a></td></tr>
+        <tr class="india-row"><td>Oziva (Hindustan Unilever subsidiary)</td><td>Plant-based nutrition &amp; supplements</td><td>Mumbai</td><td>Clean-label protein powders and wellness range; target consumers are health-conscious millennials demanding natural, zero-sugar ingredients; acquisition by HUL signals scale ambition</td><td class="src"><a href="https://www.oziva.in" target="_blank">oziva.in</a></td></tr>
+        <tr class="india-row"><td>Reliance Consumer Products (Campa Cola, Raskik)</td><td>Beverages (mass market)</td><td>Mumbai</td><td>Re-launched Campa Cola (2023); launched Raskik (March 2025); aggressive beverage market entry with national distribution; brazzein-sweetened low-sugar variants could be a differentiated premium play</td><td class="src"><a href="https://www.ril.com" target="_blank">ril.com</a></td></tr>
+        <tr class="india-row"><td>Syngene International Ltd.</td><td>CRO / CDMO</td><td>Bengaluru</td><td>India's leading CRO; conducts custom formulation development for global pharma and food clients; could use brazzein in formulation R&amp;D contracts; natural research-grade supply partner</td><td class="src"><a href="https://www.syngeneintl.com" target="_blank">syngeneintl.com</a></td></tr>
+        <tr class="india-row"><td>Amul (GCMMF)</td><td>Dairy — India's largest</td><td>Anand, Gujarat</td><td>India's dominant dairy brand; activating diabetic and low-sugar dairy range (sugar-free ice cream, flavoured milk); brazzein as natural sweetener post-FSSAI approval would be transformative for Amul's health range</td><td class="src"><a href="https://www.amul.com" target="_blank">amul.com</a></td></tr>
+        <tr class="india-row"><td>Cargill India Pvt. Ltd.</td><td>Ingredient distribution / sweeteners</td><td>Gurugram</td><td>Global brazzein market participant (estimated 18% market share per DataIntelo); India subsidiary is a potential distribution partner OR competitor; understanding their India play is strategically critical</td><td class="src"><a href="https://www.cargill.co.in" target="_blank">cargill.co.in</a></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">7B — Global Target Companies</div>
+    <div class="card-body">
+      <table>
+        <tr><th>Company</th><th>Country</th><th>Segment</th><th>Why a Target</th></tr>
+        <tr><td>Ingredion Incorporated</td><td>USA</td><td>Ingredient solutions (120+ countries)</td><td>Strategic partner for brazzein distribution globally; already partnered with Oobli; could source from Indian manufacturer at lower cost if India-produced brazzein is equivalent quality and GRAS-compliant</td></tr>
+        <tr><td>Tate &amp; Lyle PLC</td><td>UK (global)</td><td>Food ingredients, sweeteners</td><td>Leading natural sweetener portfolio; formulation expertise in blending brazzein with stevia; active in Asia distribution; potential off-take partner for Indian-produced brazzein</td></tr>
+        <tr><td>Coca-Cola Company</td><td>USA (global)</td><td>Beverages</td><td>Already launched 3 brazzein-formulated beverage lines in North America &amp; Europe (2025); needs diverse sourcing as volume scales; India-produced brazzein at cost advantage would interest procurement</td></tr>
+        <tr><td>Grupo Bimbo</td><td>Mexico (global)</td><td>Bakery, confectionery</td><td>Already piloting brazzein-formulated products with Oobli; world's largest bakery company; heat-stable brazzein directly fits baking application; India sourcing opportunity if regulatory alignment achieved</td></tr>
+        <tr><td>Nestlé S.A.</td><td>Switzerland (global)</td><td>F&amp;B, nutrition, dairy</td><td>Active in animal-free proteins (precision fermentation); sugar reduction across confectionery and dairy; $80B+ food revenue creates massive ingredient demand; active in India through Maggi, KitKat, Milo</td></tr>
+        <tr><td>Givaudan S.A.</td><td>Switzerland</td><td>Flavours &amp; ingredients</td><td>Acquired Brazilian biotech specializing in brazzein (per MarketReportsWorld); leading taste modulation company; potential strategic partnership or supplier for novel fermentation brazzein</td></tr>
+        <tr><td>Mondelēz International</td><td>USA (global)</td><td>Confectionery (Cadbury, Oreo)</td><td>Integrating brazzein into confectionery formulations (per DataIntelo 2026); global procurement at scale; India is top-5 Mondelēz market; Cadbury sugar-reduction interest</td></tr>
+        <tr><td>Oobli Foods</td><td>USA</td><td>Sweet protein platform</td><td>Not a customer but a key technology licensor/partner; consider CDMO/toll manufacturing agreement — Oobli sources from CMOs; India facility could be attractive lower-cost CMO option</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 08 ═══════════════════════════════════════════════════ -->
+<div class="section" id="s08">
+  <div class="section-header"><span class="num">08</span><h2>Strategic Business <span>Frameworks</span></h2></div>
+
+  <!-- SWOT -->
+  <div class="card">
+    <div class="card-header">8A — SWOT Analysis</div>
+    <div class="card-body">
+      <div class="swot-grid">
+        <div class="swot-cell swot-s">
+          <h3 style="color:#2e7d32;">💪 STRENGTHS</h3>
+          <ul>
+            <li>Company spans R&amp;D, CRO, import-export, manufacturing — multiple entry modes</li>
+            <li>India has structural cost advantage for fermentation (sugarcane, biotech talent)</li>
+            <li>Zero current Indian competition — genuine first-mover opportunity</li>
+            <li>Existing relationships in pharma, nutraceutical, F&amp;B verticals — natural customer base</li>
+            <li>IEC, GST, and chemical trading infrastructure already in place</li>
+            <li>India's 101M diabetics creates structurally high demand for zero-GI sweeteners</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-w">
+          <h3 style="color:#b71c1c;">⚠ WEAKNESSES</h3>
+          <ul>
+            <li>FSSAI novel food approval required before Indian commercial food sales — 18–36 month process</li>
+            <li>No internal precision fermentation capability — requires CAPEX or CMO partnership</li>
+            <li>Brazzein technical complexity (protein folding, cold-chain) unfamiliar to most Indian chemical companies</li>
+            <li>GMO/rDNA regulatory pathway (RCGM) adds complexity for domestic manufacturing</li>
+            <li>Limited publicly available pricing/trade data makes demand forecasting difficult</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-o">
+          <h3 style="color:#0d47a1;">🚀 OPPORTUNITIES</h3>
+          <ul>
+            <li>India functional beverage market: USD 6.9B → USD 18.8B by 2034 (IMARC)</li>
+            <li>India's 101M diabetics + PM Modi's anti-obesity push driving strong policy tailwind</li>
+            <li>FSSAI becoming first Indian brazzein approver creates regulatory moat</li>
+            <li>India CMO/toll manufacturing for global brazzein players seeking cost reduction</li>
+            <li>Export to US/EU markets leveraging FDA GRAS status of source strains</li>
+            <li>Indian sugarcane-derived glucose as low-cost feedstock vs US corn-based production</li>
+            <li>CRO supply of research-grade brazzein to India and global biotech labs — immediate revenue</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-t">
+          <h3 style="color:#bf6900;">⚡ THREATS</h3>
+          <ul>
+            <li>Global players (Oobli, Bestzyme, MicroFarmtory) may enter India directly via Ingredion distribution</li>
+            <li>EU and India regulatory approval delays could slow market development</li>
+            <li>Allergenicity concerns (structural similarity to knottin allergens) could trigger FSSAI caution</li>
+            <li>AI-designed sweet proteins (Amai Proteins, $100M raised) could make brazzein obsolete</li>
+            <li>India GMO regulatory uncertainty — DBT-RCGM review timeline unpredictable</li>
+            <li>Competing natural sweeteners (stevia Reb M, allulose, monk fruit) already FSSAI-approved and entrenched</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PORTER'S -->
+  <div class="card">
+    <div class="card-header">8B — Porter's Five Forces</div>
+    <div class="card-body">
+      <div class="forces-grid">
+        <div class="force-card"><div class="fh fh-orange">Competitive Rivalry — MEDIUM</div><div class="fb">Globally: 8–10 active brazzein producers competing. No Indian producer — domestic rivalry is effectively zero. Global competition between US (Oobli, Sweegen), Chinese (Bestzyme, MicroFarmtory), and European (Pentasweet) players intensifying but Indian market is insulated by FSSAI barrier.</div></div>
+        <div class="force-card"><div class="fh fh-orange">Threat of New Entrants — MEDIUM</div><div class="fb">Precision fermentation requires specific expertise, capital ($20–80M own facility), and regulatory filings. India entry via toll manufacturing is lower barrier. However, once FSSAI approval secured, the approval itself becomes a moat.</div></div>
+        <div class="force-card"><div class="fh fh-red">Bargaining Power of Suppliers — HIGH</div><div class="fb">Currently, all production technology and strains are proprietary to US/Chinese companies. India cannot source strains commercially yet. CMO toll manufacturing depends on global partners. This dependency is the key vulnerability and driver for developing India-native fermentation capability.</div></div>
+        <div class="force-card"><div class="fh fh-orange">Bargaining Power of Buyers — MEDIUM</div><div class="fb">Large F&amp;B companies (Tata, HUL, Nestlé) have leverage but are limited by novelty of brazzein — few suppliers exist. CRO buyers are price-sensitive but small volume. Pharmaceutical buyers less price-sensitive. Early supplier status improves negotiating position.</div></div>
+        <div class="force-card"><div class="fh fh-green">Threat of Substitutes — LOW–MEDIUM</div><div class="fb">Stevia, monk fruit, sucralose, allulose already FSSAI-approved. However, brazzein's unique advantages (heat stability to 98°C, zero GI, clean taste, taste modulation of other sweeteners) provide genuine differentiation. Not easily substituted in heat-processed applications.</div></div>
+        <div class="force-card"><div class="fh fh-green">Overall Attractiveness — FAVORABLE</div><div class="fb">India-specific: near-zero domestic competition, massive diabetic population driving demand, regulatory first-mover advantage available, cost-production advantages in fermentation. Global: high-growth emerging category with clear consumer and regulatory tailwinds. Recommend entry.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PESTLE -->
+  <div class="card">
+    <div class="card-header">8C — PESTLE Analysis</div>
+    <div class="card-body">
+      <div class="pestle-grid">
+        <div class="pestle-card">
+          <h3>🏛 Political</h3>
+          <ul>
+            <li>PM Modi's anti-obesity initiative driving FSSAI to develop standalone sweetener regulations (Feb 2025)</li>
+            <li>India's "Make in India" supports domestic precision fermentation</li>
+            <li>DBT's BioE3 Policy (2023) promotes bio-manufacturing — brazzein production eligible for PLI-type support</li>
+            <li>Government sugar reform agenda — potential future sugar tax creates structural demand</li>
+          </ul>
+        </div>
+        <div class="pestle-card">
+          <h3>📊 Economic</h3>
+          <ul>
+            <li>India functional beverage market: 10.74% CAGR to USD 18.8B by 2034</li>
+            <li>India food sweetener market: USD 26.4B → USD 41.2B by 2031</li>
+            <li>INR/USD volatility increases imported brazzein cost; strengthens case for domestic manufacturing</li>
+            <li>India's rising middle class (+300M by 2030) — premium health food adoption</li>
+          </ul>
+        </div>
+        <div class="pestle-card">
+          <h3>👥 Social</h3>
+          <ul>
+            <li>101M diabetics in India — world's largest; direct demand pull for zero-GI sweeteners</li>
+            <li>36% urban Indians concerned about sugar in packaged beverages</li>
+            <li>Clean-label, natural ingredient preference rising rapidly (stevia market growth as proxy)</li>
+            <li>India's vegetarianism and protein awareness supporting sweet protein narrative</li>
+          </ul>
+        </div>
+        <div class="pestle-card">
+          <h3>🔬 Technological</h3>
+          <ul>
+            <li>Precision fermentation titer improving; cost declining from $1M/kg (2000) to $24–65/kg (2026)</li>
+            <li>MicroFarmtory claims brazzein at parity with sugar cost-in-use</li>
+            <li>AI protein design (Amai Proteins) — future competitor, also future collaborator</li>
+            <li>India's IIT/CSIR biotech labs capable of strain development partnerships</li>
+          </ul>
+        </div>
+        <div class="pestle-card">
+          <h3>⚖️ Legal &amp; Regulatory</h3>
+          <ul>
+            <li>FSSAI Novel Food pathway — 18–36 month approval; first approver gets moat</li>
+            <li>DBT-RCGM rDNA review required for manufacturing with engineered strains</li>
+            <li>FDA GRAS (US) cleared 2024–2025; enables US export from India if manufactured</li>
+            <li>EU EFSA approval expected 2026–2028; opens European market</li>
+            <li>India Drug &amp; Cosmetics Act compliance for pharmaceutical-grade</li>
+          </ul>
+        </div>
+        <div class="pestle-card">
+          <h3>🌿 Environmental</h3>
+          <ul>
+            <li>Brazzein via precision fermentation: saves 525,000 acres land, 88B gallons water per 1% sugar displacement (Oobli data)</li>
+            <li>Zero land required (vs sugarcane, stevia plantation)</li>
+            <li>India's sugarcane molasses as feedstock: waste valorization opportunity</li>
+            <li>ESG/sustainability mandates in global F&amp;B — brazzein as green ingredient aligns with ESG reporting</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BCG -->
+  <div class="card">
+    <div class="card-header">8D — BCG Matrix</div>
+    <div class="card-body">
+      <div class="bcg-grid">
+        <div class="bcg-cell bcg-star"><h3>⭐ STARS</h3><p>Stevia Reb M, monk fruit — established high-growth natural sweeteners. Brazzein will move here post-FSSAI approval if commercialised successfully in India.</p></div>
+        <div class="bcg-cell bcg-qm"><h3>❓ QUESTION MARK — OUR POSITION</h3><p>Brazzein in India — very high-growth end markets (diabetic nutrition, functional F&amp;B), but low current market share due to FSSAI pending status. Invest to move to Star — viable with clear approval timeline and 2–3 anchor customers.</p></div>
+        <div class="bcg-cell bcg-cow"><h3>🐄 CASH COWS</h3><p>Sucralose, aspartame, saccharin — approved, low-growth, low margin. Stevia Reb A (commodity). Use cashflow from these to fund brazzein entry.</p></div>
+        <div class="bcg-cell bcg-dog"><h3>🐕 DOGS</h3><p>Cyclamates, saccharin — declining market, regulatory scrutiny. Exit or minimise. Standard commodity chemicals with no differentiation.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANSOFF -->
+  <div class="card">
+    <div class="card-header">8E — Ansoff Matrix</div>
+    <div class="card-body">
+      <div class="ansoff-grid">
+        <div class="ansoff-card" style="opacity:0.5;"><h3>Market Penetration — N/A</h3><p>No current presence in brazzein in any market. Not applicable.</p></div>
+        <div class="ansoff-card" style="border: 2px solid #1565c0;"><h3 style="color:#1565c0;">✅ Market Development — RECOMMENDED (Immediate)</h3><p>Leverage existing pharma, nutraceutical, and F&amp;B customer relationships to introduce brazzein as a new ingredient. File FSSAI novel food dossier now. Supply research-grade brazzein from US/China to Indian CROs and ingredient developers.</p></div>
+        <div class="ansoff-card" style="border: 2px solid #4caf50;"><h3 style="color:#2e7d32;">✅ Product Development — MEDIUM-TERM (2–4 years)</h3><p>Develop India-produced brazzein via toll manufacturing with biotech CMO partner (CIAB-Mohali, Praj Industries). Create brazzein-stevia blend products analogous to Sweegen's Sweetensify — differentiated Indian product.</p></div>
+        <div class="ansoff-card" style="opacity:0.6;"><h3>⚠ Diversification — LONG-TERM / CAUTIOUS</h3><p>Expand to other sweet proteins (monellin, thaumatin) and AI-designed variants. Only after brazzein supply chain and customer base established.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VALUE CHAIN -->
+  <div class="card">
+    <div class="card-header">8F — Value Chain Analysis</div>
+    <div class="card-body">
+      <div class="vc-flow">
+        <div class="vc-step inactive">Raw Material<br>(Glucose/Yeast)</div>
+        <div class="vc-step inactive">Fermentation<br>(Production Strain)</div>
+        <div class="vc-step active">Sourcing &amp;<br>Import</div>
+        <div class="vc-step active">Quality Testing<br>&amp; CRO Supply</div>
+        <div class="vc-step active">Domestic<br>Distribution</div>
+        <div class="vc-step active">FSSAI<br>Regulatory</div>
+        <div class="vc-step active">Export<br>(US-GRAS markets)</div>
+        <div class="vc-step inactive">End Customer<br>F&amp;B / Pharma</div>
+      </div>
+      <p style="font-size:11px;color:#5a7a99;margin-bottom:12px;">Blue = Recommended participation now | Gray = Customer/partner territory or medium-term manufacturing target</p>
+      <table>
+        <tr><th>Stage</th><th>Our Opportunity</th><th>Timeline</th></tr>
+        <tr><td>Sourcing &amp; Import</td><td>Source food-grade brazzein from FDA GRAS-cleared suppliers (Oobli via Ingredion, Bestzyme China, MicroFarmtory); maintain cold-chain; supply to India R&amp;D labs</td><td>Immediate (Month 1–3)</td></tr>
+        <tr><td>Quality Testing / CRO</td><td>Offer brazzein with CoA and comprehensive analytical data (HPLC, mass spec, microbiological) to pharma and food R&amp;D labs. Build reputation as quality-assured supplier.</td><td>Immediate (Month 2–4)</td></tr>
+        <tr><td>FSSAI Regulatory</td><td>File Novel Food dossier; become first Indian brazzein FSSAI holder — this creates a durable first-mover regulatory moat</td><td>Month 3–9 (file); approval 2027–28</td></tr>
+        <tr><td>Domestic Distribution</td><td>Post-FSSAI approval: distribute to Tata Consumer, HUL, ITC, Dabur, Parle — target ingredient trials with 3–5 customers during 2027</td><td>Post FSSAI (2027+)</td></tr>
+        <tr><td>Export</td><td>If sourcing from FDA GRAS-cleared producers, re-export to SE Asia, Middle East, Japan — markets where FSSAI/FDA GRAS adds credibility</td><td>Medium-term (2026–2027)</td></tr>
+        <tr><td>Toll Manufacturing</td><td>Partner with CIAB Mohali, Praj Industries, or Anthem Biosciences (Bengaluru) for toll fermentation — develop proprietary India-produced brazzein supply</td><td>Long-term (2027–2029)</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 09 ═══════════════════════════════════════════════════ -->
+<div class="section" id="s09">
+  <div class="section-header"><span class="num">09</span><h2>Feasibility Summary &amp; <span>Management Recommendation</span></h2></div>
+
+  <div class="verdict">
+    <div class="vtag">Overall Feasibility Assessment</div>
+    <h3>✅ CONDITIONAL — RECOMMENDED FOR STRATEGIC ENTRY</h3>
+    <p>Brazzein is the most technically superior natural sweetener ever discovered, and it is entering its commercial phase globally. India presents a first-mover opportunity: no domestic producer, no FSSAI approval yet, a massive diabetic and health-conscious consumer base, and a structural fermentation cost advantage. The key condition is that India's FSSAI Novel Food approval process must be initiated immediately to ensure market readiness by 2027–2028. Entry via import &amp; CRO supply is viable now. Domestic manufacturing becomes viable in 3–4 years via toll fermentation partnerships with CSIR/IIT-linked biotech CMOs. The regulatory complexity (FSSAI Novel Food + DBT-RCGM) is a <em>moat, not just a barrier</em> — any competitor entering India will face the same process, giving the first mover lasting advantage.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Recommended Business Mode (Priority Order)</div>
+    <div class="card-body">
+      <table>
+        <tr><th>Mode</th><th>Recommendation</th><th>Rationale</th></tr>
+        <tr><td>🔵 Import &amp; CRO / R&amp;D Supply</td><td><span class="tag-pill tag-green">START IMMEDIATELY</span></td><td>Supply research/analytical grade brazzein to India pharma CROs, ingredient developers, food tech labs. No FSSAI food approval needed for R&amp;D supply. Builds customer relationships and technical credibility. Anchor 3–5 customers in Year 1.</td></tr>
+        <tr><td>🔵 FSSAI Novel Food Application</td><td><span class="tag-pill tag-green">FILE IN MONTH 3–6</span></td><td>First to obtain India FSSAI approval for brazzein = durable regulatory moat. Critical strategic investment of ~12–18 months and USD 50,000–200,000 in dossier preparation and consultancy costs.</td></tr>
+        <tr><td>🔵 Sourcing &amp; Marketing</td><td><span class="tag-pill tag-green">START IMMEDIATELY</span></td><td>Identify 2–3 supply sources (Oobli via Ingredion, Bestzyme, MicroFarmtory); RFQ for 1–5 kg trial quantities; establish cold-chain logistics (–20°C); begin ingredient marketing to India target companies.</td></tr>
+        <tr><td>🟡 Export (US/Asia)</td><td><span class="tag-pill tag-blue">OPPORTUNISTIC</span></td><td>Source from FDA GRAS-cleared suppliers and re-export to SE Asia, Japan, Middle East, UAE. India distribution gateway + quality assurance adds value. Start Year 2 onwards.</td></tr>
+        <tr><td>🟡 Toll Manufacturing (CMO)</td><td><span class="tag-pill tag-amber">MEDIUM-TERM (2–4 yr)</span></td><td>Partner with Anthem Biosciences (Bengaluru), Praj Industries, or CSIR-CIAB Mohali for toll fermentation of brazzein. Cost of production could undercut Chinese suppliers by 30%. Requires DBT-RCGM strain clearance.</td></tr>
+        <tr><td>🔴 Own Manufacturing Facility</td><td><span class="tag-pill tag-gray">LONG-TERM (4–7 yr)</span></td><td>Only viable after: (a) FSSAI approval secured, (b) anchor customer base established, (c) toll manufacturing validated. Capital intensive (USD 20–80M). Assess after 3 years of market development.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Key Risks to Monitor</div>
+    <div class="card-body">
+      <table>
+        <tr><th>Risk</th><th>Level</th><th>Mitigation</th></tr>
+        <tr><td>FSSAI Novel Food approval delay or rejection</td><td><span class="tag-pill tag-red">HIGH</span></td><td>Engage experienced food regulatory consultant (Regulatory Compliance Associates, TÜV SÜD India) early; engage pre-submission meeting with FSSAI; build dossier on FDA GRAS safety data as foundation</td></tr>
+        <tr><td>FSSAI allergenicity concern (knottin structural similarity)</td><td><span class="tag-pill tag-amber">MEDIUM</span></td><td>Commission comprehensive allergenicity study pre-dossier; reference FDA GRN 1142 safety data; obtain written safety assessment from GRAS panel</td></tr>
+        <tr><td>Global player (Ingredion/Oobli) enters India before our FSSAI filing</td><td><span class="tag-pill tag-red">HIGH</span></td><td>File FSSAI dossier within Month 6 — speed is critical. Build relationships with anchor customers now to lock in commitment pending approval.</td></tr>
+        <tr><td>Supply chain disruption — China-sourced brazzein geopolitical risk</td><td><span class="tag-pill tag-amber">MEDIUM</span></td><td>Multi-source: Oobli/Ingredion (US), Bestzyme (China), MicroFarmtory (China). Develop India toll manufacturing as domestic security of supply within 3 years.</td></tr>
+        <tr><td>DBT-RCGM GMO review complexity for India manufacturing</td><td><span class="tag-pill tag-amber">MEDIUM</span></td><td>Engage DBT-recognised biosafety consultant early. Use non-GMO classified hosts where possible (A. oryzae has GRAS status in food manufacturing). Timeline uncertainty is 12–24 months for RCGM clearance.</td></tr>
+        <tr><td>Price commoditisation as capacity expands globally</td><td><span class="tag-pill tag-amber">MEDIUM</span></td><td>Lock in 2–3 year supply agreements at current prices; develop proprietary India-produced brazzein as differentiated, lower-cost supply; position as ingredient + formulation service, not just commodity</td></tr>
+        <tr><td>Competing sweeteners already FSSAI-approved (stevia, monk fruit)</td><td><span class="tag-pill tag-amber">MEDIUM</span></td><td>Differentiate brazzein as the superior option for heat-processed foods and diabetic products where stevia's taste is insufficient. Brazzein-stevia blends are superior to either alone — productise this blend.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Suggested Next Steps</div>
+    <div class="card-body">
+      <ul class="steps-list">
+        <li><span class="step-num">1</span><span class="step-txt"><strong>Customer Validation (Month 1–2):</strong> Approach 5 India food/pharma companies — Tata Consumer, HUL Nutrition team, Cipla Consumer Health, Wellversed, Syngene — to assess interest and RFQ for R&amp;D supply of brazzein samples. Validate the demand before investment.</span></li>
+        <li><span class="step-num">2</span><span class="step-txt"><strong>Supplier Qualification (Month 1–3):</strong> Contact Bestzyme (China; FDA GRAS), Ingredion (USA; Oobli partnership), and MicroFarmtory (China) for RFQ, CoA, MSDS, and trial quantity pricing. Qualify 2 suppliers for cost and quality redundancy. Obtain 100g–1kg sample for India customer testing.</span></li>
+        <li><span class="step-num">3</span><span class="step-txt"><strong>Logistics Setup (Month 2–4):</strong> Establish cold-chain import capability (–20°C frozen freight, dry ice logistics, bonded cold-storage partner). Identify freight forwarder with temperature-controlled expertise (e.g. Agility Logistics India, Snowman Logistics). Confirm HS code classification with licensed customs broker.</span></li>
+        <li><span class="step-num">4</span><span class="step-txt"><strong>FSSAI Novel Food Dossier — File (Month 3–6):</strong> Engage food regulatory consultant to prepare Novel Food safety dossier. Leverage FDA GRN 1142 (Oobli) safety data as foundation. Target filing by Month 6. This is the <em>single most time-critical action</em> — every month of delay is a month of first-mover advantage lost.</span></li>
+        <li><span class="step-num">5</span><span class="step-txt"><strong>Toll Manufacturing Feasibility (Month 6–12):</strong> Commission technical feasibility study with CIAB Mohali (DBT institute with precision fermentation capability) or Anthem Biosciences (Bengaluru CDMO). Objective: assess whether India-produced brazzein at USD 20–30/kg production cost is achievable. Identify strain licensing pathway from Oobli or MicroFarmtory.</span></li>
+        <li><span class="step-num">6</span><span class="step-txt"><strong>Market Development &amp; Industry Presence (Ongoing):</strong> List brazzein in specialty ingredient directories (Phyto Commerce, India Food Ingredients); exhibit at Food Ingredients Asia, FI India, CPhI India; partner with food technology consultants to drive formulation trials at 2–3 target companies pending FSSAI approval. Build brand as India's brazzein specialist.</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 10 ═══════════════════════════════════════════════════ -->
+<div class="section" id="s10">
+  <div class="section-header"><span class="num">10</span><h2>Sources &amp; <span>References</span></h2></div>
+
+  <div class="card">
+    <div class="card-body">
+      <ol class="refs-list">
+        <li>Wikipedia — Brazzein | Wikimedia Foundation | <a href="https://en.wikipedia.org/wiki/Brazzein" target="_blank">https://en.wikipedia.org/wiki/Brazzein</a></li>
+        <li>Ming D. et al. — "Brazzein, a new high‐potency thermostable sweet protein" | FEBS Letters, 1994 | <a href="https://febs.onlinelibrary.wiley.com/doi/pdf/10.1016/0014-5793(94)01184-2" target="_blank">DOI: 10.1016/0014-5793(94)01184-2</a></li>
+        <li>PMC10217172 — "Brazzein and Monellin: Chemical Analysis, Food Industry Applications, Safety and Quality Control" | MDPI Nutrients, 2023 | <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10217172/" target="_blank">https://pmc.ncbi.nlm.nih.gov/articles/PMC10217172/</a></li>
+        <li>ScienceDirect — Brazzein Overview | Elsevier | <a href="https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/brazzein" target="_blank">https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/brazzein</a></li>
+        <li>Science.gov — "Sweet protein brazzein" topic compilation | <a href="https://www.science.gov/topicpages/s/sweet+protein+brazzein.html" target="_blank">https://www.science.gov/topicpages/s/sweet+protein+brazzein.html</a></li>
+        <li>FDA GRN 1142 — Agency Response Letter — Oobli Brazzein GRAS "No Questions" | March 2024 | <a href="https://www.fda.gov/media/177329/download" target="_blank">https://www.fda.gov/media/177329/download</a></li>
+        <li>FDA GRAS GRN 1826 — MicroFarmtory FarmtoryTM Brazzein Self-GRAS | 2026 | <a href="https://downloads.regulations.gov/FDA-2026-N-1832-0005/attachment_1.pdf" target="_blank">https://downloads.regulations.gov/FDA-2026-N-1832-0005/attachment_1.pdf</a></li>
+        <li>PRNewswire — "Bestzyme's Mellia™ Brazzein Receives FDA No Questions Letter" | April 2025 | <a href="https://www.prnewswire.com/news-releases/bestzymes-mellia-brazzein-receives-fda-no-questions-letter-302439021.html" target="_blank">https://www.prnewswire.com/news-releases/bestzymes-mellia-brazzein-receives-fda-no-questions-letter-302439021.html</a></li>
+        <li>PRNewswire — "Oobli and Ingredion Announce Partnership" | February 2025 | <a href="https://www.prnewswire.com/news-releases/oobli-and-ingredion-announce-partnership-as-demand-for-sweet-proteins-accelerates-302375717.html" target="_blank">https://www.prnewswire.com/news-releases/oobli-and-ingredion-announce-partnership-as-demand-for-sweet-proteins-accelerates-302375717.html</a></li>
+        <li>AgFunder News — "Pentasweet breaks ground on $76M precision fermentation facility" | April 2026 | <a href="https://agfundernews.com/sweet-protein-pentasweet-breaks-ground-on-76m-precision-fermentation-facility-for-brazzein" target="_blank">https://agfundernews.com/sweet-protein-pentasweet-breaks-ground-on-76m-precision-fermentation-facility-for-brazzein</a></li>
+        <li>AgFunder News — "Sweegen FEMA GRAS for brazzein via precision fermentation" | 2024 | <a href="https://agfundernews.com/sweegen-secures-fema-gras-status-for-sweet-protein-brazzein" target="_blank">https://agfundernews.com/sweegen-secures-fema-gras-status-for-sweet-protein-brazzein</a></li>
+        <li>Food Dive — "Sweegen to bring brazzein to market through synthetic biology" | January 2022 | <a href="https://www.fooddive.com/news/sweegen-brazzein-conagen-synbio/616547/" target="_blank">https://www.fooddive.com/news/sweegen-brazzein-conagen-synbio/616547/</a></li>
+        <li>Springer Food Science &amp; Biotechnology — "Engineering sweetness: zeocin-based screening for high-titer K. phaffii clones" | April 2026 | <a href="https://link.springer.com/article/10.1007/s10068-026-02150-8" target="_blank">https://link.springer.com/article/10.1007/s10068-026-02150-8</a></li>
+        <li>MDPI Fermentation — "Optimization of pH and Temperature for Brazzein Expression in Pichia pastoris" | March 2026 | <a href="https://doi.org/10.3390/fermentation12030146" target="_blank">https://doi.org/10.3390/fermentation12030146</a></li>
+        <li>MDPI Life — "Comparison of Signal Peptides for Brazzein Secretion in P. pastoris" | 2021 | <a href="https://www.mdpi.com/2075-1729/11/1/46" target="_blank">https://www.mdpi.com/2075-1729/11/1/46</a></li>
+        <li>US Patent 5346998 — "Brazzein sweetener" | University of Wisconsin | <a href="https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/5346998" target="_blank">https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/5346998</a></li>
+        <li>US Patent 9826773 — "Brazzein multiple variants of increased sweetness" | <a href="https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/9826773" target="_blank">https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/9826773</a></li>
+        <li>US Patent 11613757 — "Process for extracellular secretion of Brazzein (E. coli ompA)" | <a href="https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/11613757" target="_blank">https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/11613757</a></li>
+        <li>GFI Europe — "Pathfinding towards precision fermentation viability" | Arthur D. Little | July 2025 | <a href="https://gfieurope.org/wp-content/uploads/2025/07/Pathfinding-towards-precision-fermentation-viability.pdf" target="_blank">https://gfieurope.org/wp-content/uploads/2025/07/Pathfinding-towards-precision-fermentation-viability.pdf</a></li>
+        <li>MarkWide Research — "Brazzein Market Size, Share, and Industry Trends 2026–2036" | May 2026 | <a href="https://markwideresearch.com/brazzein-market" target="_blank">https://markwideresearch.com/brazzein-market</a></li>
+        <li>MarketIntelo — "Brazzein Market Research Report 2033" | September 2025 | <a href="https://marketintelo.com/report/brazzein-market" target="_blank">https://marketintelo.com/report/brazzein-market</a></li>
+        <li>DataIntelo — "Global Brazzein Market Report 2025–2034" | 2026 | <a href="https://dataintelo.com/report/global-brazzein-market" target="_blank">https://dataintelo.com/report/global-brazzein-market</a></li>
+        <li>Persistence Market Research — "Brazzein Market Size, Trends &amp; Industry Statistics 2033" | <a href="https://www.persistencemarketresearch.com/market-research/brazzein-market.asp" target="_blank">https://www.persistencemarketresearch.com/market-research/brazzein-market.asp</a></li>
+        <li>IMARC Group — "India Sweeteners Market Size, Share &amp; Trends 2025–2033" | <a href="https://www.imarcgroup.com/india-sweeteners-market" target="_blank">https://www.imarcgroup.com/india-sweeteners-market</a></li>
+        <li>IMARC Group — "India Functional Beverages Market Size 2025–2034" | <a href="https://www.imarcgroup.com/india-functional-beverages-market" target="_blank">https://www.imarcgroup.com/india-functional-beverages-market</a></li>
+        <li>MobilityForesights — "India Food Sweetener Market 2025–2031" | October 2025 | <a href="https://mobilityforesights.com/product/india-food-sweetener-market" target="_blank">https://mobilityforesights.com/product/india-food-sweetener-market</a></li>
+        <li>Smolecule — "Buy Brazzein — Industrial Procurement Guide" | <a href="https://www.smolecule.com/products/s1889001" target="_blank">https://www.smolecule.com/products/s1889001</a></li>
+        <li>FoodTalks — "One Hundred Billion-Yuan Sugar Substitute Market: Brazzein Achieves a Sweet Breakthrough" | Aquafarmtory, 2025 | <a href="https://www.foodtalks.cn/en/news/57039" target="_blank">https://www.foodtalks.cn/en/news/57039</a></li>
+        <li>Biosafe.fi — "Precision fermentation is ready. EU novel food approval isn't." | March 2026 | <a href="https://www.biosafe.fi/insight/precision-fermentation-is-ready-eu-novel-food-approval-isnt" target="_blank">https://www.biosafe.fi/insight/precision-fermentation-is-ready-eu-novel-food-approval-isnt</a></li>
+        <li>FSSAI — Food Safety and Standards Authority of India (official regulations) | <a href="https://www.fssai.gov.in/" target="_blank">https://www.fssai.gov.in/</a></li>
+        <li>GreenQueen — "Oobli Sweet Protein $18M Series B1, Ingredion Partnership" | 2025 | <a href="https://www.greenqueen.com.hk/oobli-sweet-protein-chocolate-fruit-ingredion-ozempic-sugar/" target="_blank">https://www.greenqueen.com.hk/oobli-sweet-protein-chocolate-fruit-ingredion-ozempic-sugar/</a></li>
+        <li>BioProcessTools — "Precision Fermentation Economics: Can You Compete at $25/kg?" | April 2026 | <a href="https://bioprocesstools.com/blog/precision-fermentation-economics/" target="_blank">https://bioprocesstools.com/blog/precision-fermentation-economics/</a></li>
+        <li>CIRS Group — "Overview of FDA GRAS Notices in 2024" | February 2025 | <a href="https://www.cirs-group.com/en/food/overview-of-fda-gras-notifications-in-2024" target="_blank">https://www.cirs-group.com/en/food/overview-of-fda-gras-notifications-in-2024</a></li>
+        <li>MarketReportsWorld — "Brazzein Market Size &amp; Share 2033" | April 2026 | <a href="https://www.marketreportsworld.com/market-reports/brazzein-market-14720788" target="_blank">https://www.marketreportsworld.com/market-reports/brazzein-market-14720788</a></li>
+        <li>Technavio — "India Health Beverages Market 2026–2030" | 2026 | <a href="https://www.technavio.com/report/health-beverages-market-in-india-industry-analysis" target="_blank">https://www.technavio.com/report/health-beverages-market-in-india-industry-analysis</a></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<footer>
+  <strong>CONFIDENTIAL — INTERNAL USE ONLY</strong><br>
+  Prepared by Market Intelligence &amp; Business Research Division | June 2026<br>
+  Based on publicly available secondary sources as of June 2026. Market size estimates vary significantly across research firms and are flagged accordingly.<br>
+  To export as PDF: Click "⬇ Download PDF" in the sidebar → File → Print → Save as PDF in Chrome (ensure "Background graphics" is checked)
+</footer>
+
+</div><!-- /main -->
+
+<script>
+// Sidebar active scroll highlighting
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('#sidebar nav a');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + id) link.classList.add('active');
+      });
+    }
+  });
+}, { threshold: 0.2, rootMargin: '-60px 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
